@@ -120,44 +120,50 @@
 
         <!-- Blank Start -->
         <div class="container-fluid pt-4 px-4">
-            <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-                <div class="col-md-6 text-center">
+            <div class="bg-light text-center rounded p-4">
+                <div class="d-flex align-items-center justify-content-between mb-4">
                     <h6 class="mb-0">공지사항</h6>
-                    <table border="1" width="600px">
-                        <tr>
-                            <td width="200" align="center">제목</td>
-                            <td width="100" align="center">조회수</td>
-                            <td width="100" align="center">등록자</td>
-                            <td width="100" align="center">등록일</td>
-                        </tr>
-                        <%
-                            for (int i = 0; i < rList.size(); i++) {
+                    <a href="/notice/NoticeReg">[글쓰기]</a>
+                </div>
+                    <div class="table-responsive">
+                        <table class="table text-start align-middle table-bordered table-hover mb-0">
+                            <thead>
+                                <tr class="text-dark">
+                                    <th scope="col">Title</th>
+                                    <th scope="col">Views</th>
+                                    <th scope="col">Register</th>
+                                    <th scope="col">Regist date</th>
+                                </tr>
+                            </thead>
+                            <%
+                                for (int i = 0; i < rList.size(); i++) {
                                 NoticeDTO rDTO = rList.get(i);
 
-                                if (rDTO == null) {
+                                    if (rDTO == null) {
                                     rDTO = new NoticeDTO();
                                 }
 
-                        %>
-                        <tr>
+                            %>
+                            <tbody>
+                                <tr>
+                                    <td align="center">
+                                        <a href="javascript:doDetail('<%=CmmUtil.nvl(rDTO.getNotice_seq())%>');">
+                                            <%=CmmUtil.nvl(rDTO.getTitle()) %>
+                                        </a>
+                                    </td>
+                                    <td align="center"><%=CmmUtil.nvl(rDTO.getRead_cnt()) %>
+                                    </td>
+                                    <td align="center"><%=CmmUtil.nvl(rDTO.getUser_name()) %>
+                                    </td>
+                                    <td align="center"><%=CmmUtil.nvl(rDTO.getReg_dt()) %>
+                                    </td>
+                                </tr>
+                            <%
+                                }
+                            %>
+                            </tbody>
+                        </table>
 
-                            <td align="center">
-                                <a href="javascript:doDetail('<%=CmmUtil.nvl(rDTO.getNotice_seq())%>');">
-                                    <%=CmmUtil.nvl(rDTO.getTitle()) %>
-                                </a>
-                            </td>
-                            <td align="center"><%=CmmUtil.nvl(rDTO.getRead_cnt()) %>
-                            </td>
-                            <td align="center"><%=CmmUtil.nvl(rDTO.getUser_name()) %>
-                            </td>
-                            <td align="center"><%=CmmUtil.nvl(rDTO.getReg_dt()) %>
-                            </td>
-                        </tr>
-                        <%
-                            }
-                        %>
-                    </table>
-                    <a href="/notice/NoticeReg">[글쓰기]</a>
                 </div>
             </div>
         </div>
