@@ -1,25 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="kopo.poly.dto.NoticeDTO" %>
-<%@ page import="kopo.poly.util.CmmUtil" %>
-
-<%
-    session.setAttribute("SESSION_USER_ID", "USER01"); //세션 강제 적용, 로그인된 상태로 보여주기 위함
-
-    List<NoticeDTO> rList = (List<NoticeDTO>) request.getAttribute("rList");
-
-//게시판 조회 결과 보여주기
-    if (rList == null) {
-        rList = new ArrayList<NoticeDTO>();
-
-    }
-
-%>
+         pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-
 <head>
     <meta charset="utf-8">
     <title>MultiStudio - Multiple Streaming Studio</title>
@@ -79,8 +61,8 @@
             </a>
             <div class="navbar-nav w-100">
                 <a href="../index" class="nav-item nav-link"><i class="fa fa-youtube-play" aria-hidden="false"></i>Main</a>
-                <a href="../MultiStudio/MultiStudio" class="nav-item nav-link"><i class="fa fa-youtube-play" aria-hidden="false"></i>MultiStudio</a>
-                <a href="/NoticeList" class="nav-item nav-link active"><i class="fa fa-book" aria-hidden="false"></i>Notice</a>
+                <a href="MultiStudio" class="nav-item nav-link active"><i class="fa fa-youtube-play" aria-hidden="false"></i>MultiStudio</a>
+                <a href="../notice/NoticeList" class="nav-item nav-link"><i class="fa fa-book" aria-hidden="false"></i>Notice</a>
             </div>
         </nav>
     </div>
@@ -110,81 +92,26 @@
                             </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="Setting.html" class="dropdown-item">My Profile</a>
+                        <a href="setting.html" class="dropdown-item">My Profile</a>
                     </div>
                 </div>
             </div>
         </nav>
         <!-- Navbar End -->
 
-
         <!-- Blank Start -->
         <div class="container-fluid pt-4 px-4">
-            <div class="bg-light text-center rounded p-4">
-                <div class="d-flex align-items-center justify-content-between mb-4">
-                    <h6 class="mb-0">공지사항</h6>
-                    <a href="/notice/NoticeReg">[글쓰기]</a>
-                </div>
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
-                            <thead>
-                                <tr class="text-dark">
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Views</th>
-                                    <th scope="col">Register</th>
-                                    <th scope="col">Regist date</th>
-                                </tr>
-                            </thead>
-                            <%
-                                for (int i = 0; i < rList.size(); i++) {
-                                NoticeDTO rDTO = rList.get(i);
-
-                                    if (rDTO == null) {
-                                    rDTO = new NoticeDTO();
-                                }
-
-                            %>
-                            <tbody>
-                                <tr>
-                                    <td align="center">
-                                        <a href="javascript:doDetail('<%=CmmUtil.nvl(rDTO.getNotice_seq())%>');">
-                                            <%=CmmUtil.nvl(rDTO.getTitle()) %>
-                                        </a>
-                                    </td>
-                                    <td align="center"><%=CmmUtil.nvl(rDTO.getRead_cnt()) %>
-                                    </td>
-                                    <td align="center"><%=CmmUtil.nvl(rDTO.getUser_name()) %>
-                                    </td>
-                                    <td align="center"><%=CmmUtil.nvl(rDTO.getReg_dt()) %>
-                                    </td>
-                                </tr>
-                            <%
-                                }
-                            %>
-                            </tbody>
-                        </table>
-
+            <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
+                <div class="col-md-6 text-center">
+                    <h3>This is blank page</h3>
                 </div>
             </div>
         </div>
         <!-- Blank End -->
 
 
-        <!-- Footer Start -->
-        <div class="container-fluid pt-4 px-4">
-            <div class="bg-light rounded-top p-4">
-                <div class="row">
-                    <div class="col-12 col-sm-6 text-center text-sm-start">
-                        &copy; <a href="#">MultiST</a>, All Right Reserved.
-                    </div>
-                    <div class="col-12 col-sm-6 text-center text-sm-end">
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                        Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer End -->
+
+
     </div>
     <!-- Content End -->
 
