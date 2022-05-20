@@ -19,4 +19,10 @@ public class MainController {
         return "/MultiStudio/MultiStudio";
 
     }
+
+    @GetMapping(value = "Setting")
+    public String Setting() {
+        return "Setting";
+
+    }
 }
