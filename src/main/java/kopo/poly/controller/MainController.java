@@ -25,4 +25,10 @@ public class MainController {
         return "Setting";
 
     }
+
+    @GetMapping(value = "Search2")
+    public String Search() {
+        return "Search2";
+
+    }
 }

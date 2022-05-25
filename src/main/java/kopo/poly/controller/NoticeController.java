@@ -35,16 +35,6 @@ public class NoticeController {
     @Resource(name = "NoticeService")
     private INoticeService noticeService;
 
-    /**
-     * GetMapping은 GET방식을 통해 접속되는 URL 호출에 대해 실행되는 함수로 설정함을 의미함
-     * PostMapping은 POST방식을 통해 접속되는 URL 호출에 대해 실행되는 함수로 설정함을 의미함
-     * GetMapping(value = "index") =>  GET방식을 통해 접속되는 URL이 index인 경우 아래 함수를 실행함
-     */
-//    @GetMapping(value = "index")
-//    public String Index() {
-//        return "/index";
-//
-//    }
 
     /**
      * 게시판 리스트 보여주기

@@ -32,11 +32,52 @@
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+    <script src="https://code.jquery.com/jquery-3.0.0.js"></script>
     <script type="text/javascript">
 
-        //상세보기 이동
-        function doDetail(seq) {
-            location.href = "/notice/NoticeInfo?nSeq=" + seq;
+
+        let apikey = "AIzaSyAfJQyw0LqcMkaJi0hCw35NUPyjV7Br-4g";
+
+        let keyword ="짱구는못말려";
+
+
+
+        $.ajax({
+
+            url:'https://www.googleapis.com/youtube/v3/search',
+
+            type:'get',
+
+            dataType:'json',
+
+            data:{part:'snippet',key:apikey,q:keyword, maxResults:50,type:'video',videoEmbeddable:'true'},
+
+            success:function (data){
+
+                console.log(data);
+
+                $.each(data.items, function(i, item) {
+
+                    thumbnail = item.snippet.thumbnails.medium.url; // 썸네일 이미지
+
+                    videoId = item.id.videoId;				 // 비디오 아이디
+
+
+
+                });
+
+            }
+
+        });
+
+        function v_link(videoId){
+
+
+
+            location.href='https://www.youtube.com/watch?v='+videoId;
+
+
+
         }
 
     </script>
@@ -102,36 +143,10 @@
 
             <!-- Form Start -->
             <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Basic Form</h6>
-                            <form>
-                                <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1"
-                                           aria-describedby="emailHelp">
-                                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1">
-                                </div>
-                                <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Sign in</button>
-                            </form>
-                        </div>
+                <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
+                    <div class="col-md-6">
+                        <h3>This is blank page</h3>
                     </div>
-                    <div class="col-sm-12 col-xl-6 text-center">
-                        <div class="bg-light rounded h-100 p-4">
-                            <iframe src="https://titanembeds.com/embed/979011041608474694" height="600" width="90%" frameborder="0"></iframe>
-                        </div>
-                    </div>
-
                 </div>
             </div>
             <!-- Form End -->

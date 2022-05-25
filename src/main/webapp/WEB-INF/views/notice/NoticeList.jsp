@@ -110,7 +110,7 @@
                             </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="Setting.html" class="dropdown-item">My Profile</a>
+                        <a href="../Setting" class="dropdown-item">My Profile</a>
                     </div>
                 </div>
             </div>
@@ -118,7 +118,7 @@
         <!-- Navbar End -->
 
 
-        <!-- Blank Start -->
+        <!-- Form Start -->
         <div class="container-fluid pt-4 px-4">
             <div class="bg-light text-center rounded p-4">
                 <div class="d-flex align-items-center justify-content-between mb-4">
@@ -167,7 +167,7 @@
                 </div>
             </div>
         </div>
-        <!-- Blank End -->
+        <!-- Form End -->
 
 
         <!-- Footer Start -->

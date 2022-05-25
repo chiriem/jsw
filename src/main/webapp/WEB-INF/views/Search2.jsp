@@ -32,11 +32,101 @@
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-    <script type="text/javascript">
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script>
 
-        //상세보기 이동
-        function doDetail(seq) {
-            location.href = "/notice/NoticeInfo?nSeq=" + seq;
+        function fnGetList(sGetToken){
+
+            var $getval = $("#search_box").val();
+
+            if($getval==""){
+
+                alert("검색어를 입력하세요.");
+
+                $("#search_box").focus();
+
+                return;
+
+            }
+
+            $("#get_view").empty();
+
+            $("#nav_view").empty();
+
+            //https://developers.google.com/youtube/v3/docs/search/list
+
+            var order = "relevance";
+
+            var maxResults = "10";
+
+            var key = "AIzaSyAfJQyw0LqcMkaJi0hCw35NUPyjV7Br-4g";
+
+
+
+            var sTargetUrl = "https://www.googleapis.com/youtube/v3/search?part=snippet&order="+order
+
+                + "&q="+ encodeURIComponent($getval) +"&key="+key+"&maxResults="+maxResults;
+
+            console.log(sGetToken);
+
+            if(sGetToken != null){
+
+                sTargetUrl += "&pageToken="+sGetToken+"";
+
+            }
+
+            console.log(sTargetUrl);
+
+            $.ajax({
+
+                type: "POST",
+
+                url: sTargetUrl,
+
+                dataType: "jsonp",
+
+                success: function(jdata) {
+
+                    console.log(jdata);
+
+
+
+                    $(jdata.items).each(function(i){
+
+                        //console.log(this.snippet.channelId);
+
+                        $("#get_view").append('<p class="box"><a href="https://youtu.be/'+this.id.videoId+'">'+'<span>'+this.snippet.title+'</span></a></p>');
+
+                    }).promise().done(function(){
+
+                        if(jdata.prevPageToken){
+
+                            $("#nav_view").append('<a href="javascript:fnGetList(\''+jdata.prevPageToken+'\');"><이전페이지></a>');
+
+                        }
+
+                        if(jdata.nextPageToken){
+
+                            $("#nav_view").append('<a href="javascript:fnGetList(\''+jdata.nextPageToken+'\');"><다음페이지></a>');
+
+                        }
+
+                    });
+
+                },
+
+                error:function(xhr, textStatus) {
+
+                    console.log(xhr.responseText);
+
+                    alert("에러");
+
+                    return;
+
+                }
+
+            });
+
         }
 
     </script>
@@ -80,7 +170,10 @@
                     <i class="fa fa-bars"></i>
                 </a>
                 <form class="d-none d-md-flex ms-4">
-                    <input class="form-control border-0" type="search" placeholder="Search">
+                    <form name="form1" method="post" onsubmit="return false;">
+                        <input class="form-control border-0" type="search" placeholder="Search" id="search_box" target="search_box_t"><button type="button" class="btn btn-primary m-2" onclick="fnGetList();">Go!</button>
+                    </form>
+                </form>
                 </form>
                 <div class="navbar-nav align-items-center ms-auto">
 
@@ -102,36 +195,16 @@
 
             <!-- Form Start -->
             <div class="container-fluid pt-4 px-4">
-                <div class="row g-4">
-                    <div class="col-sm-12 col-xl-6">
-                        <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Basic Form</h6>
-                            <form>
-                                <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1"
-                                           aria-describedby="emailHelp">
-                                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
-                                    </div>
-                                </div>
-                                <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1">
-                                </div>
-                                <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                                </div>
-                                <button type="submit" class="btn btn-primary">Sign in</button>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="col-sm-12 col-xl-6 text-center">
-                        <div class="bg-light rounded h-100 p-4">
-                            <iframe src="https://titanembeds.com/embed/979011041608474694" height="600" width="90%" frameborder="0"></iframe>
-                        </div>
-                    </div>
+                <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
+                    <div class="col-md-9">
+                        <form name="form1" method="post" onsubmit="return false;">
+                            <form class="form-control border-0" id="search_box_t">
+                        </form>
 
+                        <div id="get_view"></div>
+
+                        <div id="nav_view"></div>
+                    </div>
                 </div>
             </div>
             <!-- Form End -->
