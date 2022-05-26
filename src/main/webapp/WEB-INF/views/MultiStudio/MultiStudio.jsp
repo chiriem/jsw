@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,7 +24,7 @@
 
     <!-- Libraries Stylesheet -->
     <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"/>
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
@@ -32,20 +32,30 @@
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-    <script type="text/javascript">
-
-        //상세보기 이동
-        function doDetail(seq) {
-            location.href = "/notice/NoticeInfo?nSeq=" + seq;
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="/jsglue.js" type="text/javascript"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/youtube_tool/js/multi_view.js"></script>
+    <link href="/youtube_tool/css/multi_view.css" rel="stylesheet">
+    <script>
+        const add_textbox = () => {
+            const box = document.getElementById("box");
+            const newP = document.createElement('p');
+            newP.innerHTML = "<input type='text'> <input type='button' value='삭제' onclick='remove(this)'>";
+            box.appendChild(newP);
         }
-
+        const remove = (obj) => {
+            document.getElementById('box').removeChild(obj.parentNode);
+        }
     </script>
+
 </head>
 
 <body>
 <div class="container-xxl position-relative bg-white d-flex p-0">
     <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div id="spinner"
+         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
         </div>
@@ -56,12 +66,13 @@
     <!-- Sidebar Start -->
     <div class="sidebar pe-4 pb-3">
         <nav class="navbar bg-light navbar-light">
-            <a href="index.html" class="navbar-brand mx-4 mb-3">
+            <a href="../index" class="navbar-brand mx-4 mb-3">
                 <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>MultiStudio</h3>
             </a>
             <div class="navbar-nav w-100">
                 <a href="../index" class="nav-item nav-link"><i class="fa fa-youtube-play" aria-hidden="false"></i>Main</a>
-                <a href="MultiStudio" class="nav-item nav-link active"><i class="fa fa-youtube-play" aria-hidden="false"></i>MultiStudio</a>
+                <a href="MultiStudio" class="nav-item nav-link active"><i class="fa fa-youtube-play"
+                                                                          aria-hidden="false"></i>MultiStudio</a>
                 <a href="../notice/NoticeList" class="nav-item nav-link"><i class="fa fa-book" aria-hidden="false"></i>Notice</a>
             </div>
         </nav>
@@ -102,14 +113,47 @@
         <!-- Blank Start -->
         <div class="container-fluid pt-4 px-4">
             <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-                <div class="col-md-6 text-center">
-                    <iframe src="https://titanembeds.com/embed/976352208947916840" height="600" width="800" frameborder="0"></iframe>
+                <div class="col-md-6" id="box">
+                    <%--                    <input type="text"> <input type="button" value="추가" onclick="add_textbox()">--%>
+                    <div class="ct1">
+                        <div class="input-group mb-3">
+                            <input id="youtube_url" type="text" class="form-control"
+                                   placeholder="예: https://www.youtube.com/watch?v=Uw9EyXHPw" aria-label=""
+                                   aria-describedby="button-addon2">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary notranslate" type="button" id="btn_add_video"
+                                        onclick="addVideo()">
+                                    비디오 추가
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="" id="addVideos"></div>
+                        <!-- 사각형-반응형 -->
+                        <div style="text-align: center;">
+                            <ins class="adsbygoogle"
+                                 style="display:block"
+                                 data-ad-client="ca-pub-5654225736570114"
+                                 data-ad-slot="8264211673"
+                                 data-ad-format="auto"
+                                 data-full-width-responsive="true"></ins>
+                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                        </div>
+                    </div>
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+                                var tag = document.createElement('script');
+                                tag.src = "https://www.youtube.com/iframe_api";
+                                var firstScriptTag = document.getElementsByTagName('script')[0];
+                                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                            });
+                        </script>
+                    </div>
                 </div>
             </div>
         </div>
         <!-- Blank End -->
-
-
 
 
     </div>

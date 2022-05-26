@@ -56,7 +56,7 @@
 	<!-- Sidebar Start -->
 	<div class="sidebar pe-4 pb-3">
 		<nav class="navbar bg-light navbar-light">
-			<a href="index.html" class="navbar-brand mx-4 mb-3">
+			<a href="index" class="navbar-brand mx-4 mb-3">
 				<h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>MultiStudio</h3>
 			</a>
 			<div class="navbar-nav w-100">
@@ -80,7 +80,7 @@
 				<i class="fa fa-bars"></i>
 			</a>
 			<form class="d-none d-md-flex ms-4">
-				<input class="form-control border-0" type="search" placeholder="Search">
+				<input class="form-control border-0" type="search" placeholder="Search"><button type="button" class="btn btn-primary m-2" onclick="location.href='Search2';">Go!</button>
 			</form>
 			<div class="navbar-nav align-items-center ms-auto">
 
@@ -93,6 +93,7 @@
 					</a>
 					<div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 						<a href="/Setting" class="dropdown-item">My Profile</a>
+						<a href="/login" class="dropdown-item">login</a>
 					</div>
 				</div>
 			</div>

@@ -146,7 +146,7 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="index" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>MultiStudio</h3>
                 </a>
                 <div class="navbar-nav w-100">
@@ -198,7 +198,7 @@
                 <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
                     <div class="col-md-9">
                         <form name="form1" method="post" onsubmit="return false;">
-                            <form class="form-control border-0" id="search_box_t">
+                            <form class="form-control border-0" id="search_box_t"></form>
                         </form>
 
                         <div id="get_view"></div>

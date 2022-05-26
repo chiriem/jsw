@@ -31,4 +31,16 @@ public class MainController {
         return "Search2";
 
     }
+
+    @GetMapping(value = "flogin")
+    public String login() {
+        return "flogin";
+
+    }
+
+    @GetMapping(value = "MultiStudio/MultiStudio1")
+    public String MultiStudio1() {
+        return "/MultiStudio/MultiStudio1";
+
+    }
 }

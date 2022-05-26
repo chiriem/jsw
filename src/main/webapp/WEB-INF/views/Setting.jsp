@@ -56,7 +56,7 @@
         <!-- Sidebar Start -->
         <div class="sidebar pe-4 pb-3">
             <nav class="navbar bg-light navbar-light">
-                <a href="index.html" class="navbar-brand mx-4 mb-3">
+                <a href="index" class="navbar-brand mx-4 mb-3">
                     <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>MultiStudio</h3>
                 </a>
                 <div class="navbar-nav w-100">
@@ -105,24 +105,23 @@
                 <div class="row g-4">
                     <div class="col-sm-12 col-xl-6">
                         <div class="bg-light rounded h-100 p-4">
-                            <h6 class="mb-4">Basic Form</h6>
+                            <h6 class="mb-4">YouTube Key</h6>
                             <form>
                                 <div class="mb-3">
-                                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                                    <label for="exampleInputEmail1" class="form-label">Youtube address</label>
                                     <input type="email" class="form-control" id="exampleInputEmail1"
-                                           aria-describedby="emailHelp">
-                                    <div id="emailHelp" class="form-text">We'll never share your email with anyone else.
+                                           aria-describedby="emailHelp" style="width:300px">
+                                    <button type="submit" class="btn btn-primary">Check!</button>
+                                    <div id="emailHelp" class="form-text">Can get youtube key
                                     </div>
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1">
+                                    <label for="exampleInputPassword1" class="form-label">Key</label><br><br>
+                                    <hr>
                                 </div>
                                 <div class="mb-3 form-check">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">Check me out</label>
                                 </div>
-                                <button type="submit" class="btn btn-primary">Sign in</button>
+
                             </form>
                         </div>
                     </div>
