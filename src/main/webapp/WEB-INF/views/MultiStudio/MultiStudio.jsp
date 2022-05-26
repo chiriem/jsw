@@ -37,18 +37,6 @@
     <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/youtube_tool/js/multi_view.js"></script>
     <link href="/youtube_tool/css/multi_view.css" rel="stylesheet">
-    <script>
-        const add_textbox = () => {
-            const box = document.getElementById("box");
-            const newP = document.createElement('p');
-            newP.innerHTML = "<input type='text'> <input type='button' value='삭제' onclick='remove(this)'>";
-            box.appendChild(newP);
-        }
-        const remove = (obj) => {
-            document.getElementById('box').removeChild(obj.parentNode);
-        }
-    </script>
-
 </head>
 
 <body>
@@ -110,39 +98,39 @@
         </nav>
         <!-- Navbar End -->
 
-        <!-- Blank Start -->
+        <!-- MultiST Start -->
         <div class="container-fluid pt-4 px-4">
-            <div class="row vh-100 bg-light rounded align-items-center justify-content-center mx-0">
-                <div class="col-md-6" id="box">
-                    <%--                    <input type="text"> <input type="button" value="추가" onclick="add_textbox()">--%>
-                    <div class="ct1">
-                        <div class="input-group mb-3">
-                            <input id="youtube_url" type="text" class="form-control"
-                                   placeholder="예: https://www.youtube.com/watch?v=Uw9EyXHPw" aria-label=""
-                                   aria-describedby="button-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary notranslate" type="button" id="btn_add_video"
-                                        onclick="addVideo()">
-                                    비디오 추가
-                                </button>
+            <div class="row g-4">
+                <div class="col-sm-12 col-xl-12" id="box">
+                    <div class="bg-light rounded h-100 p-4">
+                        <div class="ct1">
+                            <div class="input-group mb-3">
+                                <input id="youtube_url" type="text" class="form-control"
+                                       placeholder="예: https://www.youtube.com/watch?v=Uw9EyXHPw" aria-label=""
+                                       aria-describedby="button-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary notranslate" type="button" id="btn_add_video"
+                                            onclick="addVideo()">
+                                        비디오 추가
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="" id="addVideos"></div>
+                            <!-- 사각형-반응형 -->
+                            <div style="text-align: center;">
+                                <ins class="adsbygoogle"
+                                     style="display:block"
+                                     data-ad-client="ca-pub-5654225736570114"
+                                     data-ad-slot="8264211673"
+                                     data-ad-format="auto"
+                                     data-full-width-responsive="true"></ins>
+                                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
                             </div>
                         </div>
-
-                        <div class="" id="addVideos"></div>
-                        <!-- 사각형-반응형 -->
-                        <div style="text-align: center;">
-                            <ins class="adsbygoogle"
-                                 style="display:block"
-                                 data-ad-client="ca-pub-5654225736570114"
-                                 data-ad-slot="8264211673"
-                                 data-ad-format="auto"
-                                 data-full-width-responsive="true"></ins>
-                            <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                            <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-                        </div>
-                    </div>
                         <script type="text/javascript">
-                            $(document).ready(function(){
+                            $(document).ready(function () {
                                 var tag = document.createElement('script');
                                 tag.src = "https://www.youtube.com/iframe_api";
                                 var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -151,9 +139,54 @@
                         </script>
                     </div>
                 </div>
+<%--                <div class="col-sm-12 col-xl-12">--%>
+<%--                    <div class="bg-light rounded h-100 p-4">--%>
+<%--                        <div class="ct3">--%>
+<%--                            <h4 class="display-5 color-sub-title">단계 2.--%>
+<%--                                <button class="btn btn-primary notranslate" type="button" id="btn_link"--%>
+<%--                                        onclick="getLink()">--%>
+<%--                                    <i class="fab fa-windows"></i> 멀티 뷰 생성--%>
+<%--                                </button>--%>
+<%--                            </h4>--%>
+<%--                            <div class="result_multiview_link">--%>
+<%--                                <div class="input-group mb-3">--%>
+<%--                                    <input type="text" id="result_link" class="form-control" onclick="this.select();"--%>
+<%--                                           readonly>--%>
+<%--                                    <div class="input-group-append">--%>
+<%--                                        <button class="btn btn-primary notranslate" type="button" id="copy"--%>
+<%--                                                data-toggle="tooltip" data-placement="top" title="Copy to clipboard"--%>
+<%--                                                onclick="copytoclip()"><i class="fas fa-copy"></i></button>--%>
+<%--                                        <button class="btn btn-primary notranslate" type="button" id="view"--%>
+<%--                                                data-toggle="tooltip" data-placement="top" title="Open New Window"--%>
+<%--                                                onclick="newWindow()"><i class="fas fa-eye"></i></button>--%>
+<%--                                    </div>--%>
+<%--                                </div>--%>
+<%--                            </div>--%>
+<%--                            <div class="result_multiview_window" id="result_view_btn"></div>--%>
+<%--                            <!-- 사각형-반응형 -->--%>
+<%--                            <div style="text-align: center;">--%>
+<%--                                <ins class="adsbygoogle"--%>
+<%--                                     style="display:block"--%>
+<%--                                     data-ad-client="ca-pub-5654225736570114"--%>
+<%--                                     data-ad-slot="8264211673"--%>
+<%--                                     data-ad-format="auto"--%>
+<%--                                     data-full-width-responsive="true"></ins>--%>
+<%--                                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>--%>
+<%--                                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>--%>
+<%--                            </div>--%>
+<%--                        </div>--%>
+<%--                        <script type="text/javascript">--%>
+<%--                            $(document).ready(function () {--%>
+<%--                                $('#result_link').focus(function () {--%>
+<%--                                    this.select();--%>
+<%--                                });--%>
+<%--                            });--%>
+<%--                        </script>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
             </div>
         </div>
-        <!-- Blank End -->
+        <!-- MultiST End -->
 
 
     </div>

@@ -7,14 +7,14 @@
     margin: 0 auto;
     margin: 5px 5px 0 5px;
     background-color: #2d4e7b;
-    width: 240px;
-    height: 190px;
+    width: 450px;
+    height: 380px;
     overflow: hidden;
     border-radius: 3px;
 }
 .yPlayer{
-    width: 240px;
-    height: 146px;
+    width: 450px;
+    height: 350px;
 }
 .setTime{
     height: 36px;
