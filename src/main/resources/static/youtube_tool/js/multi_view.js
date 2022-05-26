@@ -1,4 +1,4 @@
-var hostdomain = 'localhost:10001/';
+var hostdomain = 'https://emapp.cc/';
 var videos = {};//Yvideo class
 var vCount = 0;
 

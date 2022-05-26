@@ -139,51 +139,42 @@
                         </script>
                     </div>
                 </div>
-<%--                <div class="col-sm-12 col-xl-12">--%>
-<%--                    <div class="bg-light rounded h-100 p-4">--%>
-<%--                        <div class="ct3">--%>
-<%--                            <h4 class="display-5 color-sub-title">단계 2.--%>
-<%--                                <button class="btn btn-primary notranslate" type="button" id="btn_link"--%>
-<%--                                        onclick="getLink()">--%>
-<%--                                    <i class="fab fa-windows"></i> 멀티 뷰 생성--%>
-<%--                                </button>--%>
-<%--                            </h4>--%>
-<%--                            <div class="result_multiview_link">--%>
-<%--                                <div class="input-group mb-3">--%>
-<%--                                    <input type="text" id="result_link" class="form-control" onclick="this.select();"--%>
-<%--                                           readonly>--%>
-<%--                                    <div class="input-group-append">--%>
-<%--                                        <button class="btn btn-primary notranslate" type="button" id="copy"--%>
-<%--                                                data-toggle="tooltip" data-placement="top" title="Copy to clipboard"--%>
-<%--                                                onclick="copytoclip()"><i class="fas fa-copy"></i></button>--%>
-<%--                                        <button class="btn btn-primary notranslate" type="button" id="view"--%>
-<%--                                                data-toggle="tooltip" data-placement="top" title="Open New Window"--%>
-<%--                                                onclick="newWindow()"><i class="fas fa-eye"></i></button>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
-<%--                            <div class="result_multiview_window" id="result_view_btn"></div>--%>
-<%--                            <!-- 사각형-반응형 -->--%>
-<%--                            <div style="text-align: center;">--%>
-<%--                                <ins class="adsbygoogle"--%>
-<%--                                     style="display:block"--%>
-<%--                                     data-ad-client="ca-pub-5654225736570114"--%>
-<%--                                     data-ad-slot="8264211673"--%>
-<%--                                     data-ad-format="auto"--%>
-<%--                                     data-full-width-responsive="true"></ins>--%>
-<%--                                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>--%>
-<%--                                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>--%>
-<%--                            </div>--%>
-<%--                        </div>--%>
-<%--                        <script type="text/javascript">--%>
-<%--                            $(document).ready(function () {--%>
-<%--                                $('#result_link').focus(function () {--%>
-<%--                                    this.select();--%>
-<%--                                });--%>
-<%--                            });--%>
-<%--                        </script>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
+                <div class="col-sm-12 col-xl-12">
+                    <div class="bg-light rounded h-100 p-4">
+                        <div class="ct3">
+                                <button class="btn btn-primary notranslate" type="button" id="btn_link"
+                                        onclick="getLink()">
+                                    <i class="fab fa-windows"></i> 멀티 뷰 생성
+                                </button>
+                            <div class="result_multiview_link">
+                                <div class="input-group mb-3">
+                                    <input type="text" id="result_link" class="form-control" onclick="this.select();"
+                                           readonly>
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary notranslate" type="button" id="copy"
+                                                data-toggle="tooltip" data-placement="top" title="Copy to clipboard"
+                                                onclick="copytoclip()"><i class="fas fa-copy"></i></button>
+                                        <button class="btn btn-primary notranslate" type="button" id="view"
+                                                data-toggle="tooltip" data-placement="top" title="Open New Window"
+                                                onclick="newWindow()"><i class="fas fa-eye"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="result_multiview_window" id="result_view_btn"></div>
+                            <!-- 사각형-반응형 -->
+                            <div style="text-align: center;">
+                                <ins class="adsbygoogle"
+                                     style="display:block"
+                                     data-ad-client="ca-pub-5654225736570114"
+                                     data-ad-slot="8264211673"
+                                     data-ad-format="auto"
+                                     data-full-width-responsive="true"></ins>
+                                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <!-- MultiST End -->
