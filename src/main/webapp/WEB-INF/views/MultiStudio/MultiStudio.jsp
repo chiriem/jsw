@@ -106,7 +106,7 @@
                         <div class="ct1">
                             <div class="input-group mb-3">
                                 <input id="youtube_url" type="text" class="form-control"
-                                       placeholder="예: https://www.youtube.com/watch?v=Uw9EyXHPw" aria-label=""
+                                       placeholder="예: https://www.youtube.com/watch?v=WMweEpGlu_U" aria-label=""
                                        aria-describedby="button-addon2">
                                 <div class="input-group-append">
                                     <button class="btn btn-primary notranslate" type="button" id="btn_add_video"
