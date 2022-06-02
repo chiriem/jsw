@@ -100,13 +100,13 @@
 
                         if (jdata.prevPageToken) {
 
-                            $("#nav_view").append('<a href="javascript:fnGetList(\'' + jdata.prevPageToken + '\');"><이전페이지></a>');
+                            $("#nav_view").append('<button class="btn btn-primary m-2" onclick="fnGetList(\'' + jdata.prevPageToken + '\')"><</button>');
 
                         }
 
                         if (jdata.nextPageToken) {
 
-                            $("#nav_view").append('<a href="javascript:fnGetList(\'' + jdata.nextPageToken + '\');"><다음페이지></a>');
+                            $("#nav_view").append('<button class="btn btn-primary m-2" onclick="fnGetList(\'' + jdata.nextPageToken + '\')">></button>');
 
                         }
 

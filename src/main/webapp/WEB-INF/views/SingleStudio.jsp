@@ -32,39 +32,10 @@
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-    <script type="text/javascript">
-        function getVideoId() {
-
-            var $gvideo = $('#youtube_url').val();
-
-            //get video ID
-            var vid;
-            if ($gvideo.indexOf('youtube.com/watch?v=') != -1) {
-                var str1 = $gvideo.split('youtube.com/watch?v=');
-                vid = str1[1];
-            } else if ($gvideo.indexOf('youtu.be/') != -1) {
-                var str1 = $gvideo.split('youtu.be/');
-                vid = str1[1];
-            }
-            if (vid.indexOf('&') != -1) {
-                var str2 = vid.split('&');
-                vid = str2[0];
-            }
-            var t_videoId = vid.trim();
-
-            var result = $('#result_link');
-            result.val(t_videoId);
-
-            // $("#result_code").append('<input type="text" id="result_link" class="form-control" onclick="this.select();" readonly>');
-
-        }
-        function copytoclip(){
-            $('#result_link').select();
-            document.execCommand("copy");
-            add_toast('Success Info', 'Copied to clipboard.<br>Paste it where you need it with (Ctrl+v).');
-            //add_toast('Warning Info', data.error);
-        }
-    </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script src="/jsglue.js" type="text/javascript"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/youtube_tool/js/multi_view.js"></script>
     <link href="/youtube_tool/css/multi_view.css" rel="stylesheet">
 </head>
 
@@ -83,14 +54,12 @@
     <!-- Sidebar Start -->
     <div class="sidebar pe-4 pb-3">
         <nav class="navbar bg-light navbar-light">
-            <a href="index" class="navbar-brand mx-4 mb-3">
+            <a href="../index" class="navbar-brand mx-4 mb-3">
                 <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>MultiStudio</h3>
             </a>
             <div class="navbar-nav w-100">
-                <a href="/index" class="nav-item nav-link"><i class="fa fa-youtube-play"
-                                                              aria-hidden="false"></i>Main</a>
-                <a href="/MultiStudio/MultiStudio" class="nav-item nav-link"><i class="fa fa-youtube-play"
-                                                                                aria-hidden="false"></i>MultiStudio</a>
+                <a href="/index" class="nav-item nav-link active"><i class="fa fa-youtube-play" aria-hidden="false"></i>Main</a>
+                <a href="/MultiStudio/MultiStudio" class="nav-item nav-link"><i class="fa fa-youtube-play" aria-hidden="false"></i>MultiStudio</a>
                 <a href="/notice/NoticeList" class="nav-item nav-link"><i class="fa fa-book" aria-hidden="false"></i>Notice</a>
                 <a href="/Search2" class="nav-item nav-link"><i class="fa fa-search" aria-hidden="false"></i>Search</a>
             </div>
@@ -103,7 +72,7 @@
     <div class="content">
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-            <a href="/index" class="navbar-brand d-flex d-lg-none me-4">
+            <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
                 <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
             </a>
             <a href="#" class="sidebar-toggler flex-shrink-0">
@@ -119,72 +88,59 @@
                             </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="Setting" class="dropdown-item">My Profile</a>
+                        <a href="../Setting" class="dropdown-item">My Profile</a>
                     </div>
                 </div>
             </div>
         </nav>
         <!-- Navbar End -->
 
-
-        <!-- Form Start -->
+        <!-- MultiST Start -->
         <div class="container-fluid pt-4 px-4">
             <div class="row g-4">
-                <div class="col-sm-12 col-xl-6">
+                <div class="col-sm-12 col-xl-12" id="box">
                     <div class="bg-light rounded h-100 p-4">
-                        <h6 class="mb-4">YouTube Key</h6>
-                        <form>
-                            <div class="mb-3">
-                                <label class="form-label">Youtube address</label>
+                        <div class="ct1">
+                            <div class="input-group mb-3">
                                 <input id="youtube_url" type="text" class="form-control"
                                        placeholder="예: https://www.youtube.com/watch?v=WMweEpGlu_U" aria-label=""
-                                       aria-describedby="button-addon2" style="width: 300px">
-                                <button class="btn btn-primary notranslate" type="button" onclick="getVideoId()">
-                                    GetKey!
-                                </button>
-
-                                <div id="keyHelp" class="form-text">Can get youtube key
-                                </div>
-                            </div>
-                            <div class="mb-3">
-                                <input type="text" id="result_link" class="form-control" onclick="this.select();" readonly>
+                                       aria-describedby="button-addon2">
                                 <div class="input-group-append">
-                                    <button class="btn btn-primary notranslate" type="button" id="copy"
-                                            data-toggle="tooltip" data-placement="top" title="Copy to clipboard"
-                                            onclick="copytoclip()"><i class="fas fa-copy"></i></button>
+                                    <button class="btn btn-primary notranslate" type="button" id="btn_add_video" onclick="addVideo()">
+                                        비디오 추가
+                                    </button>
                                 </div>
                             </div>
 
-                        </form>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-xl-6 text-center">
-                    <div class="bg-light rounded h-100 p-4">
-                        <iframe src="https://titanembeds.com/embed/979011041608474694" height="600" width="90%"
-                                frameborder="0"></iframe>
+                            <div class="" id="addVideos"></div>
+                            <!-- 사각형-반응형 -->
+                            <div style="text-align: center;">
+                                <ins class="adsbygoogle"
+                                     style="display:block"
+                                     data-ad-client="ca-pub-5654225736570114"
+                                     data-ad-slot="8264211673"
+                                     data-ad-format="auto"
+                                     data-full-width-responsive="true"></ins>
+                                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+                                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                var tag = document.createElement('script');
+                                tag.src = "https://www.youtube.com/iframe_api";
+                                var firstScriptTag = document.getElementsByTagName('script')[0];
+                                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+                            });
+                        </script>
                     </div>
                 </div>
 
             </div>
         </div>
-        <!-- Form End -->
+        <!-- MultiST End -->
 
 
-        <!-- Footer Start -->
-        <div class="container-fluid pt-4 px-4">
-            <div class="bg-light rounded-top p-4">
-                <div class="row">
-                    <div class="col-12 col-sm-6 text-center text-sm-start">
-                        &copy; <a href="#">MultiST</a>, All Right Reserved.
-                    </div>
-                    <div class="col-12 col-sm-6 text-center text-sm-end">
-                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-                        Designed By <a href="https://htmlcodex.com">HTML Codex</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Footer End -->
     </div>
     <!-- Content End -->
 

@@ -38,9 +38,9 @@ public class MainController {
 
     }
 
-    @GetMapping(value = "MultiStudio/MultiStudio1")
-    public String MultiStudio1() {
-        return "/MultiStudio/MultiStudio1";
+    @GetMapping(value = "SingleStudio")
+    public String SingleStudio() {
+        return "SingleStudio";
 
     }
 }
