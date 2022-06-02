@@ -62,6 +62,7 @@
                 <a href="MultiStudio" class="nav-item nav-link active"><i class="fa fa-youtube-play"
                                                                           aria-hidden="false"></i>MultiStudio</a>
                 <a href="../notice/NoticeList" class="nav-item nav-link"><i class="fa fa-book" aria-hidden="false"></i>Notice</a>
+                <a href="../Search2" class="nav-item nav-link"><i class="fa fa-search" aria-hidden="false"></i>Search</a>
             </div>
         </nav>
     </div>
@@ -78,9 +79,6 @@
             <a href="#" class="sidebar-toggler flex-shrink-0">
                 <i class="fa fa-bars"></i>
             </a>
-            <form class="d-none d-md-flex ms-4">
-                <input class="form-control border-0" type="search" placeholder="Search">
-            </form>
             <div class="navbar-nav align-items-center ms-auto">
 
                 <div class="nav-item dropdown">
@@ -109,8 +107,7 @@
                                        placeholder="예: https://www.youtube.com/watch?v=WMweEpGlu_U" aria-label=""
                                        aria-describedby="button-addon2">
                                 <div class="input-group-append">
-                                    <button class="btn btn-primary notranslate" type="button" id="btn_add_video"
-                                            onclick="addVideo()">
+                                    <button class="btn btn-primary notranslate" type="button" id="btn_add_video" onclick="addVideo()">
                                         비디오 추가
                                     </button>
                                 </div>
@@ -142,14 +139,12 @@
                 <div class="col-sm-12 col-xl-12">
                     <div class="bg-light rounded h-100 p-4">
                         <div class="ct3">
-                                <button class="btn btn-primary notranslate" type="button" id="btn_link"
-                                        onclick="getLink()">
+                                <button class="btn btn-primary notranslate" type="button" id="btn_link" onclick="getLink()">
                                     <i class="fab fa-windows"></i> 멀티 뷰 생성
                                 </button>
                             <div class="result_multiview_link">
                                 <div class="input-group mb-3">
-                                    <input type="text" id="result_link" class="form-control" onclick="this.select();"
-                                           readonly>
+                                    <input type="text" id="result_link" class="form-control" onclick="this.select();" readonly>
                                     <div class="input-group-append">
                                         <button class="btn btn-primary notranslate" type="button" id="copy"
                                                 data-toggle="tooltip" data-placement="top" title="Copy to clipboard"
