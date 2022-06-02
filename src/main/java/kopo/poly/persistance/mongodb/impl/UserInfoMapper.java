@@ -64,6 +64,8 @@ public class UserInfoMapper extends AbstractMongoDBComon implements IUserInfoMap
         projection.append("user_id", pDTO.getUser_id());
         projection.append("email", pDTO.getEmail());
 
+        log.info("user_id" + projection);
+
         // 결과 값을 카운트한다.
         long ll = col.countDocuments(projection);
 

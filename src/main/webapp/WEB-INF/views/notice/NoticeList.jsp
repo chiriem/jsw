@@ -80,7 +80,7 @@
             <div class="navbar-nav w-100">
                 <a href="../index" class="nav-item nav-link"><i class="fa fa-youtube-play" aria-hidden="false"></i>Main</a>
                 <a href="../MultiStudio/MultiStudio" class="nav-item nav-link"><i class="fa fa-youtube-play" aria-hidden="false"></i>MultiStudio</a>
-                <a href="/NoticeList" class="nav-item nav-link active"><i class="fa fa-book" aria-hidden="false"></i>Notice</a>
+                <a href="NoticeList" class="nav-item nav-link active"><i class="fa fa-book" aria-hidden="false"></i>Notice</a>
                 <a href="../Search2" class="nav-item nav-link"><i class="fa fa-search" aria-hidden="false"></i>Search</a>
             </div>
         </nav>
@@ -132,7 +132,6 @@
                                 <tr class="text-dark">
                                     <th scope="col">Title</th>
                                     <th scope="col">Views</th>
-                                    <th scope="col">Register</th>
                                     <th scope="col">Regist date</th>
                                 </tr>
                             </thead>
@@ -153,8 +152,6 @@
                                         </a>
                                     </td>
                                     <td align="center"><%=CmmUtil.nvl(rDTO.getRead_cnt()) %>
-                                    </td>
-                                    <td align="center"><%=CmmUtil.nvl(rDTO.getUser_name()) %>
                                     </td>
                                     <td align="center"><%=CmmUtil.nvl(rDTO.getReg_dt()) %>
                                     </td>

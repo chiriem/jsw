@@ -1,75 +1,143 @@
 package kopo.poly.service.impl;
 
+
 import kopo.poly.dto.NoticeDTO;
-import kopo.poly.persistance.mapper.INoticeMapper;
+import kopo.poly.persistance.mongodb.impl.NoticeMapper;
+import kopo.poly.persistance.mongodb.impl.SequenceMapper;
 import kopo.poly.service.INoticeService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 
 @Slf4j
 @Service("NoticeService")
 public class NoticeService implements INoticeService {
 
-    private final INoticeMapper noticeMapper;
+    // MongoDB에 저장할 Mapper
+    @Resource(name="NoticeMapper")
+    private NoticeMapper noticeMapper;
 
-    @Autowired
-    public NoticeService(INoticeMapper noticeMapper) {
-        this.noticeMapper = noticeMapper;
+    // MongoDB에 시퀸스 검색 Mapper
+    @Resource(name="SequenceMapper")
+    private SequenceMapper sequenceMapper;
+
+    @Override
+    public List<NoticeDTO> getNoticeList(String colNm) throws Exception {
+
+        log.info(this.getClass().getName() + ".getNoticeList Start!");
+
+        // 조회 결과를 전달하기 위한 객체 생성하기
+        List<NoticeDTO> rList = new LinkedList<>();
+
+        // 조회 결과 담기
+        rList = noticeMapper.getNoticeList(colNm);
+
+        log.info(this.getClass().getName() + ".getNoticeList End!");
+
+        return rList;
     }
 
     @Override
-    public List<NoticeDTO> getNoticeList() throws Exception {
+    public int insertNoticeInfo(NoticeDTO pDTO, String colNm) throws Exception {
 
-        log.info(this.getClass().getName() + ".getNoticeList start!");
+        log.info(this.getClass().getName() + ".insertNoticeInfo Start!");
 
-        return noticeMapper.getNoticeList();
+        int res = 0;
+
+        // 시퀸스 값 넣기
+        pDTO.setNotice_seq(sequenceMapper.getSequence(colNm).getCol_seq());
+
+        // 조회수 넣기
+        pDTO.setRead_cnt("0");
+
+        // 날짜 넣기
+        pDTO.setReg_dt(SimpleDateFormat.getDateInstance().format(new Date()));
+        pDTO.setChg_dt(SimpleDateFormat.getDateInstance().format(new Date()));
+
+        // MongoDB에 데이터 저장하기
+        int success = noticeMapper.insertNoticeInfo(pDTO, colNm);
+
+        if (success > 0) {
+
+            res = 1;
+
+            // 시퀸스 값 증가
+            sequenceMapper.updateSequence(colNm);
+
+        } else {
+            res = 0;
+        }
+
+        log.info(this.getClass().getName() + ".insertNoticeInfo End!");
+
+        return res;
+    }
+
+    @Override
+    public NoticeDTO getNoticeInfo(NoticeDTO pDTO, String colNm) throws Exception {
+
+        log.info(this.getClass().getName() + ".getNoticeInfo Start!");
+
+        // 조회 결과를 전달하기 위한 객체 생성하기
+        NoticeDTO rDTO = new NoticeDTO();
+
+        // 조회 결과 담기
+        rDTO = noticeMapper.getNoticeInfo(pDTO, colNm);
+
+        log.info(this.getClass().getName() + ".getNoticeInfo End!");
+
+        return rDTO;
 
     }
 
-    @Transactional
     @Override
-    public void InsertNoticeInfo(NoticeDTO pDTO) throws Exception {
+    public int updateNoticeReadCnt(NoticeDTO pDTO,String colNm) throws Exception {
 
-        log.info(this.getClass().getName() + ".InsertNoticeInfo start!");
+        log.info(this.getClass().getName() + ".updateNoticeReadCnt Start!");
 
-        noticeMapper.InsertNoticeInfo(pDTO);
-    }
+        int res = 0;
 
-    @Transactional
-    @Override
-    public NoticeDTO getNoticeInfo(NoticeDTO pDTO) throws Exception {
+        // MongoDB에 데이터 새로고침하기
+        res = noticeMapper.updateNoticeReadCnt(pDTO, colNm);
 
-        log.info(this.getClass().getName() + ".getNoticeInfo start!");
+        log.info(this.getClass().getName() + ".updateNoticeReadCnt End!");
 
-        // 상세보기 할때마다, 조회수 증가하기
-        log.info("Update ReadCNT");
-        noticeMapper.updateNoticeReadCnt(pDTO);
-
-        return noticeMapper.getNoticeInfo(pDTO);
+        return res;
 
     }
 
-    @Transactional
     @Override
-    public void updateNoticeInfo(NoticeDTO pDTO) throws Exception {
+    public int updateNoticeInfo(NoticeDTO pDTO, String colNm) throws Exception {
 
-        log.info(this.getClass().getName() + ".updateNoticeInfo start!");
+        log.info(this.getClass().getName() + ".updateNoticeInfo Start!");
 
-        noticeMapper.updateNoticeInfo(pDTO);
+        int res = 0;
 
+        // MongoDB에 데이터 새로고침하기
+        res = noticeMapper.updateNoticeInfo(pDTO, colNm);
+
+        log.info(this.getClass().getName() + ".updateNoticeInfo End!");
+
+        return res;
     }
 
-    @Transactional
     @Override
-    public void deleteNoticeInfo(NoticeDTO pDTO) throws Exception {
+    public int deleteNoticeInfo(NoticeDTO pDTO, String colNm) throws Exception {
 
-        log.info(this.getClass().getName() + ".deleteNoticeInfo start!");
+        log.info(this.getClass().getName() + ".deleteNoticeInfo Start!");
 
-        noticeMapper.deleteNoticeInfo(pDTO);
+        int res = 0;
 
+        // MongoDB에 데이터 새로고침하기
+        res = noticeMapper.deleteNoticeInfo(pDTO, colNm);
+
+        log.info(this.getClass().getName() + ".deleteNoticeInfo End!");
+
+        return res;
     }
 }

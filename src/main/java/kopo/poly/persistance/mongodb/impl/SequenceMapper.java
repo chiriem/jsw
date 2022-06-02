@@ -46,7 +46,7 @@ public class SequenceMapper extends AbstractMongoDBComon implements ISequenceMap
 
         // 시퀸스 존재 유무 검사
         // 존재하지 않으면 생성하기
-        if(col.find(new Document("name", colNm)) == null) {
+        if(col.countDocuments(new Document("name", colNm)) == 0) {
 
             // 컬랙션의 시퀸스 값 생성
             doc.append("name", colNm);
@@ -111,5 +111,4 @@ public class SequenceMapper extends AbstractMongoDBComon implements ISequenceMap
 
         return res;
     }
-
 }
