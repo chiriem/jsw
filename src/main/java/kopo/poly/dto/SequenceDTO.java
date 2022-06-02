@@ -22,7 +22,7 @@ import lombok.Setter;
 @Setter
 public class SequenceDTO {
 
-    String col_id;
-    String seq_nl;
+    String col_nm;
+    String col_seq;
 
 }

@@ -67,7 +67,7 @@ public class UserInfoService implements IUserInfoService {
 
             // 문제 없으면 시퀸스 증가와 함께 넣기
             // 시퀸스 값 넣기
-            pDTO.setUser_seq(sequenceMapper.getSequence(colNm).getSeq_nl());
+            pDTO.setUser_seq(sequenceMapper.getSequence(colNm).getCol_seq());
 
             // 회원가입
             int success = userInfoMapper.insertUserInfo(pDTO, colNm);
@@ -76,7 +76,7 @@ public class UserInfoService implements IUserInfoService {
             if (success > 0) {
                 res = 1;
 
-
+                sequenceMapper.updateSequence(colNm);
 
             } else {
                 res = 0;
