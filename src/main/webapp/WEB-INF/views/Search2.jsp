@@ -94,7 +94,7 @@
 
                         //console.log(this.snippet.channelId);
 
-                        $("#get_view").append('<tr><td><img class="tnail" src="http://img.youtube.com/vi/' + this.id.videoId + '/mqdefault.jpg" width="180" height="120"></td><td><a href="https://youtu.be/' + this.id.videoId + '">' + '<span>' + this.snippet.title + '</span></a></td></tr>');
+                        $("#get_view").append('<div><img class="tnail" src="http://img.youtube.com/vi/' + this.id.videoId + '/mqdefault.jpg" width="180" height="120"> <a href="https://youtu.be/' + this.id.videoId + '">' + '<span>' + this.snippet.title + '</span></a></div>');
 
                     }).promise().done(function () {
 
@@ -206,7 +206,7 @@
                         <form class="form-control border-0" id="search_box_t"></form>
                     </form>
                     <div>
-                        <table class="table table-borderless" id="get_view"></table>
+                        <form class="borderless" id="get_view"></form>
                     </div>
                     <div id="nav_view"></div>
                 </div>

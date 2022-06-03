@@ -1,14 +1,14 @@
 package kopo.poly.persistance.mongodb.impl;
 
 
+import kopo.poly.dto.SequenceDTO;
+import kopo.poly.util.CmmUtil;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Filters;
 import com.mongodb.client.model.FindOneAndUpdateOptions;
-import kopo.poly.dto.SequenceDTO;
 import kopo.poly.persistance.mongodb.AbstractMongoDBComon;
 import kopo.poly.persistance.mongodb.ISequenceMapper;
-import kopo.poly.util.CmmUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.Document;
 import org.springframework.stereotype.Component;
@@ -21,6 +21,9 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component("SequenceMapper")
 public class SequenceMapper extends AbstractMongoDBComon implements ISequenceMapper {
+
+    // 시퀸스 컬렉션 이름
+    String SeqColname = "Sequence";
 
     /**
      * 흐름 :
@@ -38,8 +41,13 @@ public class SequenceMapper extends AbstractMongoDBComon implements ISequenceMap
         // 조회 결과를 전달하기 위한 객체 생성하기
         SequenceDTO rDTO = new SequenceDTO();
 
+        // 컬렉션이 없다면 생성하기
+        if(!mongodb.collectionExists(SeqColname)) {
+            super.createCollection(SeqColname);
+        }
+
         // MongoDB 컬렉션 지정하기
-        MongoCollection<Document> col = mongodb.getCollection("Sequence");
+        MongoCollection<Document> col = mongodb.getCollection(SeqColname);
 
         // 컬랙션의 시퀸시 넣을 값
         Document doc = new Document();
@@ -95,7 +103,7 @@ public class SequenceMapper extends AbstractMongoDBComon implements ISequenceMap
         int res = 0;
 
         // MongoDB 컬렉션 지정하기
-        MongoCollection<Document> col = mongodb.getCollection("Sequence");
+        MongoCollection<Document> col = mongodb.getCollection(SeqColname);
 
         // 시퀸스 검색 후 증가
         col.findOneAndUpdate(
@@ -111,4 +119,5 @@ public class SequenceMapper extends AbstractMongoDBComon implements ISequenceMap
 
         return res;
     }
+
 }

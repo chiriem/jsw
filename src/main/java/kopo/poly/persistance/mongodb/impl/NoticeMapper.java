@@ -1,14 +1,12 @@
 package kopo.poly.persistance.mongodb.impl;
 
 
-import az.subid.persistance.mongodb.INoticeMapper;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.client.model.Filters;
-import com.mongodb.client.model.FindOneAndUpdateOptions;
 import kopo.poly.dto.NoticeDTO;
 import kopo.poly.persistance.mongodb.AbstractMongoDBComon;
+import kopo.poly.persistance.mongodb.INoticeMapper;
 import kopo.poly.util.CmmUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.Document;
@@ -17,6 +15,8 @@ import org.springframework.stereotype.Component;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import static com.mongodb.client.model.Updates.set;
 
 @Slf4j
 @Component("NoticeMapper")
@@ -200,36 +200,31 @@ public class NoticeMapper extends AbstractMongoDBComon implements INoticeMapper 
 
         // MongoDB의 find 명령어를 통해 조회할 경우 사용함
         // 조회하는 데이터의 양이 적은 경우, find를 사용하고, 데이터양이 많은 경우 무조건 Aggregate 사용한다.
-        FindIterable<Document> rs = col.find(projection);
+        FindIterable<Document> rs = col.find(new Document("notice_seq", pDTO.getNotice_seq())).projection(projection);
 
-        for (Document doc : rs) {
+        Document doc = rs.first();
 
-            if (doc == null) {
+        if (doc == null) {
 
-                doc = new Document();
-
-            }
-
-            // 조회 테스트
-            String read_cnt = CmmUtil.nvl(doc.getString("read_cnt"));
-
-            log.info("read_cnt : " + read_cnt);
-
-            // rDTO에 값 집어넣기
-            pDTO.setRead_cnt(read_cnt);
+            doc = new Document();
 
         }
 
+        // 조회 테스트
+        String read_cnt = CmmUtil.nvl(doc.getString("read_cnt"));
+
+        log.info("read_cnt : " + read_cnt);
+
+        // rDTO에 값 집어넣기
+        pDTO.setRead_cnt(Integer.toString(Integer.parseInt(read_cnt) + 1));
+
         log.info(pDTO.getRead_cnt());
 
-//        rs.forEach(doc -> col.updateOne(doc, new Document("$set", new Document("read_cnt", Integer.toString(Integer.getInteger(pDTO.getRead_cnt()) + 1)))));
+        // 람다식 활용하여 nickname 필드 추가하기
+        // 전체 컬랙션에 있는 데이터를 삭제하기
+        rs.forEach(ddoc -> col.updateOne(ddoc, set("read_cnt", pDTO.getRead_cnt())));
 
-        // DTO를 Map 데이터타입으로 변경한 뒤, 변경된 Map 데이터타입을 Document로 변경하기
-        col.findOneAndUpdate(
-                Filters.eq("notice_seq",pDTO.getNotice_seq()),
-                Filters.eq("read_cnt", Integer.toString(Integer.parseInt(pDTO.getRead_cnt())+1)),
-                new FindOneAndUpdateOptions().upsert(true)
-        );
+        res = 1;
 
         log.info(this.getClass().getName() + ".updateNoticeReadCnt End!");
 

@@ -102,7 +102,8 @@ public class UserInfoMapper extends AbstractMongoDBComon implements IUserInfoMap
         projection.append("email", "$email");
 
         // 조건에 맞는 값을 검색
-        FindIterable<Document> rs = col.find(new Document(query)).projection(projection);
+//        FindIterable<Document> rs = col.find(new Document(query)).projection(projection);
+        FindIterable<Document> rs = col.find(query).projection(projection);
 
         // 결과값은 하나니까 첫번째 값만 가져옴.
         Document doc = rs.first();

@@ -1,5 +1,7 @@
+<%@ page import="kopo.poly.service.impl.UserInfoService" %>
+<%@ page import="kopo.poly.persistance.mongodb.impl.UserInfoMapper" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -33,16 +35,13 @@
 	<link href="/css/style.css" rel="stylesheet">
 	<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 	<script type="text/javascript">
-
-		//상세보기 이동
-		function doDetail(seq) {
-			location.href = "/notice/NoticeInfo?nSeq=" + seq;
-		}
-
 	</script>
 </head>
 
 <body>
+<%
+	UserInfoMapper info = (UserInfoMapper) session.getAttribute("info");
+%>
 <div class="container-xxl position-relative bg-white d-flex p-0">
 	<!-- Spinner Start -->
 	<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">

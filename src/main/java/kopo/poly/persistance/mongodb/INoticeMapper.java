@@ -1,4 +1,4 @@
-package az.subid.persistance.mongodb;
+package kopo.poly.persistance.mongodb;
 
 import kopo.poly.dto.NoticeDTO;
 

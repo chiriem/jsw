@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>MultiStudio - Multiple Streaming Studio</title>
@@ -32,18 +31,83 @@
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-    <script src="https://www.youtube.com/iframe_api"></script>
-    <script src="/jsglue.js" type="text/javascript"></script>
-    <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/youtube_tool/js/multi_view.js"></script>
-    <link href="/youtube_tool/css/multi_view.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script>
+
+        var playlist = 'CuklIb9d3fI';
+        //https://www.youtube.com/watch?v=유튜브 영상 고유번호
+        //playlist만 원하는 재생목록에 따라 가져오면 됨
+
+        //maxResult는 50 이하
+        $(document).ready(function () {
+            $.get(
+                "https://www.googleapis.com/youtube/v3/videos", {
+                    part: 'snippet',
+                    maxResults: 5,
+                    id: playlist,
+                    key: 'AIzaSyAfJQyw0LqcMkaJi0hCw35NUPyjV7Br-4g'
+                },
+
+                function (data) {
+                    var output;
+                    $.each(data.items, function (i, item) {
+                        console.log(item);
+                        vTitle = item.snippet.title;
+                        vId = item.snippet.channelId;
+                        vDe = item.snippet.description;
+                        vTh = item.snippet.channelTitle;
+                        vaaa = item.snippet.thumbnails.standard.url;
+                        output = '<li>' + vTitle + '<br>--videodescription: ' + vDe + '<br>--videothumbnails: ' + vTh + '<br></li>';
+                        /*output= '<li>'+vTitle+'<iframe src=\"//www.youtube.com/embed/'+vId+'\"></iframe></li>';*/
+                        $("#results").append(output);
+                    })
+                }
+            );
+
+        });
+
+    </script>
+    <script type="text/javascript">
+        var playlist = 'CuklIb9d3fI';
+        //https://www.youtube.com/watch?v=유튜브 영상 고유번호
+        //playlist만 원하는 재생목록에 따라 가져오면 됨
+
+        //maxResult는 50 이하
+        $(document).ready(function () {
+            $.get(
+                "https://www.googleapis.com/youtube/v3/videos", {
+                    part: 'snippet',
+                    maxResults: 5,
+                    id: playlist,
+                    key: 'AIzaSyAfJQyw0LqcMkaJi0hCw35NUPyjV7Br-4g'
+                },
+
+                function (data) {
+                    var output;
+                    $.each(data.items, function (i, item) {
+                        console.log(item);
+                        vTitle = item.snippet.title;
+                        vId = item.snippet.channelId;
+                        vDe = item.snippet.description;
+                        vTh = item.snippet.channelTitle;
+
+                        $("#youtube_title").append(vTitle);
+                        $("#youtube_chname").append(vTh);
+                        $("#youtube_desc").append(vDe);
+                    })
+                }
+            );
+
+        });
+    </script>
+
 </head>
 
 <body>
 <div class="container-xxl position-relative bg-white d-flex p-0">
     <!-- Spinner Start -->
-    <div id="spinner"
-         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
         </div>
@@ -54,7 +118,7 @@
     <!-- Sidebar Start -->
     <div class="sidebar pe-4 pb-3">
         <nav class="navbar bg-light navbar-light">
-            <a href="../index" class="navbar-brand mx-4 mb-3">
+            <a href="index" class="navbar-brand mx-4 mb-3">
                 <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>MultiStudio</h3>
             </a>
             <div class="navbar-nav w-100">
@@ -88,59 +152,50 @@
                             </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="../Setting" class="dropdown-item">My Profile</a>
+                        <a href="/Setting" class="dropdown-item">My Profile</a>
+                        <a href="/login" class="dropdown-item">login</a>
                     </div>
                 </div>
             </div>
         </nav>
         <!-- Navbar End -->
 
-        <!-- MultiST Start -->
+
+        <!-- Blank Start -->
         <div class="container-fluid pt-4 px-4">
-            <div class="row g-4">
-                <div class="col-sm-12 col-xl-12" id="box">
-                    <div class="bg-light rounded h-100 p-4">
-                        <div class="ct1">
-                            <div class="input-group mb-3">
-                                <input id="youtube_url" type="text" class="form-control"
-                                       placeholder="예: https://www.youtube.com/watch?v=WMweEpGlu_U" aria-label=""
-                                       aria-describedby="button-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary notranslate" type="button" id="btn_add_video" onclick="addVideo()">
-                                        비디오 추가
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="" id="addVideos"></div>
-                            <!-- 사각형-반응형 -->
-                            <div style="text-align: center;">
-                                <ins class="adsbygoogle"
-                                     style="display:block"
-                                     data-ad-client="ca-pub-5654225736570114"
-                                     data-ad-slot="8264211673"
-                                     data-ad-format="auto"
-                                     data-full-width-responsive="true"></ins>
-                                <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-                                <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
-                            </div>
-                        </div>
-                        <script type="text/javascript">
-                            $(document).ready(function () {
-                                var tag = document.createElement('script');
-                                tag.src = "https://www.youtube.com/iframe_api";
-                                var firstScriptTag = document.getElementsByTagName('script')[0];
-                                firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-                            });
-                        </script>
-                    </div>
-                </div>
-
+            <div class="row bg-light rounded mx-0">
+                <iframe width="100%" height="480" src="https://www.youtube.com/embed/XsX3ATc3FbA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         </div>
-        <!-- MultiST End -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="row bg-light rounded mx-0">
+                <div>
+                    <form id="youtube_title"></form>
+                    <hr>
+                    <form id="youtube_chname"></form>
+                    <hr>
+                    <form id="youtube_desc"></form>
+                </div>
+            </div>
+        </div>
+        <!-- Blank End -->
 
 
+        <!-- Footer Start -->
+        <div class="container-fluid pt-4 px-4">
+            <div class="bg-light rounded-top p-4">
+                <div class="row">
+                    <div class="col-12 col-sm-6 text-center text-sm-start">
+                        &copy; <a href="#">Your Site Name</a>, All Right Reserved.
+                    </div>
+                    <div class="col-12 col-sm-6 text-center text-sm-end">
+                        <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
+                        Designed By <a href="https://htmlcodex.com">HTML Codex</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
     </div>
     <!-- Content End -->
 
@@ -152,16 +207,16 @@
 <!-- JavaScript Libraries -->
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/lib/chart/chart.min.js"></script>
-<script src="/lib/easing/easing.min.js"></script>
-<script src="/lib/waypoints/waypoints.min.js"></script>
-<script src="/lib/owlcarousel/owl.carousel.min.js"></script>
-<script src="/lib/tempusdominus/js/moment.min.js"></script>
-<script src="/lib/tempusdominus/js/moment-timezone.min.js"></script>
-<script src="/lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
+<script src="lib/chart/chart.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="lib/tempusdominus/js/moment.min.js"></script>
+<script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
+<script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
 <!-- Template Javascript -->
-<script src="/js/main.js"></script>
+<script src="js/main.js"></script>
 </body>
 
 </html>
