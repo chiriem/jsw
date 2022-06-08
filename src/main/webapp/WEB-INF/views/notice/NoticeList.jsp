@@ -30,9 +30,6 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <!-- Favicon -->
-    <link href="/img/favicon.ico" rel="icon">
-
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -95,7 +92,7 @@
     <div class="content">
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-            <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+            <a href="index" class="navbar-brand d-flex d-lg-none me-4">
                 <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
             </a>
             <a href="#" class="sidebar-toggler flex-shrink-0">
@@ -111,10 +108,13 @@
                             </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="../Setting" class="dropdown-item">My Profile</a>
-                    </div>
-                    <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="../Login" class="dropdown-item">Log in</a>
+                        <a href="/Setting" class="dropdown-item">My Profile</a>
+                        <% if(SS_USER_ID != null){ %>
+                        <a href="/logout" class="dropdown-item">Log out<a>
+                                <%} else {%>
+                            <a href ="/user/loginForm" class="dropdown-item">Sign in<a>
+                                <a href="/user/UserRegForm" class="dropdown-item">Sign up</a>
+                                    <%} %>
                     </div>
                 </div>
             </div>

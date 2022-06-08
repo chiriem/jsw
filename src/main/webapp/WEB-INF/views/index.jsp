@@ -22,9 +22,6 @@
 	<meta content="" name="keywords">
 	<meta content="" name="description">
 
-	<!-- Favicon -->
-	<link href="/img/favicon.ico" rel="icon">
-
 	<!-- Google Web Fonts -->
 	<link rel="preconnect" href="https://fonts.googleapis.com">
 	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -88,6 +85,8 @@
 			<a href="#" class="sidebar-toggler flex-shrink-0">
 				<i class="fa fa-bars"></i>
 			</a>
+
+			<h6><%=msg %></h6>
 			<div class="navbar-nav align-items-center ms-auto">
 
 				<div class="nav-item dropdown">
@@ -121,13 +120,13 @@
 				<div class="col-sm-12 col-xl-12">
 					<div class="bg-light text-center rounded p-4">
 						<div class="d-flex align-items-center justify-content-between mb-4">
-							<h6 class="mb-0">실시간 / 예정</h6>
-							<h6><%=msg %></h6>
+							<h6 class="mb-0">동영상</h6>
+							<a href="SingleStudio/SStudioadd">add</a>
 
 							<!-- <a href="">Show All</a> -->
 
 						</div>
-						<a href="SingleStudio">studio</a>
+						<a href="SingleStudio/SingleStudio">studio</a>
 						<!-- <canvas id="worldwide-sales"></canvas> -->
 					</div>
 				</div>
@@ -149,7 +148,7 @@
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
-					<h6 class="mb-0">동영상</h6>
+					<h6 class="mb-0">실시간 / 예정</h6>
 					<!-- <a href="">Show All</a> -->
 				</div>
 

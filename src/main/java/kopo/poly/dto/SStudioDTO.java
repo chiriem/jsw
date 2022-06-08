@@ -20,22 +20,15 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
-public class UserInfoDTO {
+public class SStudioDTO {
 
-    String user_seq; // 사용자 번호
+    String sequence;
     String user_id; // 아이디
-    String user_nm; // 사용자명
-    String user_pw; // 비밀번호
-    String user_auth; // 권한
-    String age; // 출생년도
-    String reg_id; // 수정자
-    String reg_dt; // 수정일
-    String chg_id; // 최근 수정자
-    String chg_dt; // 최근 수정일
-
-    // 회원 가입 시, 중복가입을 방지를 위해 사용할 변수
-    // DB를 조회해서 회원이 존재하면 Y값을 반환함.
-    // DB테이블에 존재하지 않는 가상의 컬럼(ALIAS)
-    String exists_yn;
+    String youtube_address; // 유튜브 주소
+//
+//    // 정보 입력 시, 중복가입을 방지를 위해 사용할 변수
+//    // DB를 조회해서 회원이 존재하면 Y값을 반환함.
+//    // DB테이블에 존재하지 않는 가상의 컬럼(ALIAS)
+//    String exists_yn;
 
 }

@@ -32,21 +32,9 @@
                 return false;
             }
 
-            if (f.email.value == "") {
-                alert("이메일을 입력하세요.");
-                f.email.focus();
-                return false;
-            }
-
-            if (f.addr1.value == "") {
-                alert("주소를 입력하세요.");
-                f.addr1.focus();
-                return false;
-            }
-
-            if (f.addr2.value == "") {
-                alert("상세주소를 입력하세요.");
-                f.addr2.focus();
+            if (f.age.value == "") {
+                alert("출생년도를 입력하세요.");
+                f.age.focus();
                 return false;
             }
         }
@@ -77,14 +65,6 @@
         <tr>
             <td>이메일</td>
             <td colspan="3"><input type="text" name="email" style="width:450px"/></td>
-        </tr>
-        <tr>
-            <td>주소</td>
-            <td colspan="3"><input type="text" name="addr1" style="width:450px"/></td>
-        </tr>
-        <tr>
-            <td>상세</td>
-            <td colspan="3"><input type="text" name="addr2" style="width:450px"/></td>
         </tr>
     </table>
     <input type="submit" value="회원가입"/>

@@ -68,7 +68,6 @@ public class UserInfoMapper extends AbstractMongoDBComon implements IUserInfoMap
         // 조회 결과 중 출력할 컬럼들(SQL의 SELECT절과 FROM절 가운데 컬럼들과 유사함)
         Document projection = new Document();
         projection.append("user_id", CmmUtil.nvl(pDTO.getUser_id()));
-        projection.append("email", CmmUtil.nvl(pDTO.getEmail()));
 
         // 결과 값을 카운트한다.
         long ll = col.countDocuments(projection);
@@ -103,7 +102,7 @@ public class UserInfoMapper extends AbstractMongoDBComon implements IUserInfoMap
         Document projection = new Document();
         projection.append("user_id", "$user_id");
         projection.append("user_nm", "$user_nm");
-        projection.append("email", "$email");
+        projection.append("age", "$age");
 
         // 조건에 맞는 값을 검색
         FindIterable<Document> rs = col.find(query).projection(projection);
@@ -114,16 +113,16 @@ public class UserInfoMapper extends AbstractMongoDBComon implements IUserInfoMap
         // 조회 테스트
         String user_id = CmmUtil.nvl(doc.getString("user_id"));
         String user_nm = CmmUtil.nvl(doc.getString("user_nm"));
-        String email = CmmUtil.nvl(doc.getString("email"));
+        String age = CmmUtil.nvl(doc.getString("age"));
 
         log.info("user_id : " + user_id);
         log.info("user_nm : " + user_nm);
-        log.info("email : " + email);
+        log.info("age : " + age);
 
         // rDTO에 값 집어넣기
         rDTO.setUser_id(user_id);
         rDTO.setUser_nm(user_nm);
-        rDTO.setEmail(email);
+        rDTO.setAge(age);
 
         // 로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
         log.info(this.getClass().getName() + ".getUserLoginCheck End!");

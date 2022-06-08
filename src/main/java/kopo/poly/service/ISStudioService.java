@@ -1,0 +1,17 @@
+package kopo.poly.service;
+
+import kopo.poly.dto.SStudioDTO;
+
+public interface ISStudioService {
+
+    /**
+     * 유튜브 주소 등록하기
+     *
+     * @param pDTO  저장할 정보
+     * @param colNm 참조할 컬렉션 이름
+     * @return 저장 성공 여부
+     * @throws Exception
+     */
+    int insertYoutubeaddress(SStudioDTO pDTO, String colNm) throws Exception;
+
+}

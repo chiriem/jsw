@@ -74,9 +74,7 @@ public class UserInfoController {
             String user_id = CmmUtil.nvl(request.getParameter("user_id")); //아이디
             String user_nm = CmmUtil.nvl(request.getParameter("user_nm")); //이름
             String user_pw = CmmUtil.nvl(request.getParameter("user_pw")); //비밀번호
-            String email = CmmUtil.nvl(request.getParameter("email")); //이메일
-            String addr1 = CmmUtil.nvl(request.getParameter("addr1")); //주소
-            String addr2 = CmmUtil.nvl(request.getParameter("addr2")); //상세주소
+            String age = CmmUtil.nvl(request.getParameter("age")); //이메일
             /*
              * #######################################################
              *        웹(회원정보 입력화면)에서 받는 정보를 String 변수에 저장 끝!!
@@ -94,9 +92,7 @@ public class UserInfoController {
             log.info("user_id : " + user_id);
             log.info("user_name : " + user_nm);
             log.info("password : " + user_pw);
-            log.info("email : " + email);
-            log.info("addr1 : " + addr1);
-            log.info("addr2 : " + addr2);
+            log.info("age : " + age);
 
 
             /*
@@ -117,10 +113,8 @@ public class UserInfoController {
             //비밀번호는 절대로 복호화되지 않도록 해시 알고리즘으로 암호화함
             pDTO.setUser_pw(EncryptUtil.encHashSHA256(user_pw));
 
-            //민감 정보인 이메일은 AES128-CBC로 암호화함
-            pDTO.setEmail(EncryptUtil.encAES128CBC(email));
-            pDTO.setAddr1(addr1);
-            pDTO.setAddr2(addr2);
+
+            pDTO.setAge(age);
 
             /*
              * #######################################################
@@ -141,9 +135,6 @@ public class UserInfoController {
                 msg = "회원가입되었습니다.";
 
                 //추후 회원가입 입력화면에서 ajax를 활용해서 아이디 중복, 이메일 중복을 체크하길 바람
-            } else if (res == 2) {
-                msg = "이미 가입된 이메일 주소입니다.";
-
             } else {
                 msg = "오류로 인해 회원가입이 실패하였습니다.";
 
@@ -170,7 +161,7 @@ public class UserInfoController {
 
         }
 
-        return "/user/Msg";
+        return "redirect:/index";
     }
 
 

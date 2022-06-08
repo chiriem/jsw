@@ -10,9 +10,6 @@
     <meta content="" name="keywords">
     <meta content="" name="description">
 
-    <!-- Favicon -->
-    <link href="/img/favicon.ico" rel="icon">
-
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,6 +26,9 @@
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <%
+        String SS_USER_ID = (String) session.getAttribute("SS_USER_ID");
+    %>
 
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
@@ -36,6 +36,7 @@
     <script src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
     <script>
+
 
         function fnGetList(sGetToken) {
 
@@ -183,7 +184,6 @@
                     <button type="button" class="btn btn-primary m-2" onclick="fnGetList();">Go!</button>
                 </form>
             </form>
-            </form>
             <div class="navbar-nav align-items-center ms-auto">
 
                 <div class="nav-item dropdown">
@@ -194,11 +194,12 @@
                             </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="Setting" class="dropdown-item">My Profile</a>
-                        <% if(info != null){ %>
-                        <a href="/Logout" class="dropdown-item">로그아웃<a>
+                        <a href="/Setting" class="dropdown-item">My Profile</a>
+                        <% if(SS_USER_ID != null){ %>
+                        <a href="/logout" class="dropdown-item">Log out<a>
                                 <%} else {%>
-                            <a href ="/user/loginForm" class="dropdown-item">login<a>
+                            <a href ="/user/loginForm" class="dropdown-item">Sign in<a>
+                                <a href="/user/UserRegForm" class="dropdown-item">Sign up</a>
                                     <%} %>
                     </div>
                 </div>
