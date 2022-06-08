@@ -73,6 +73,8 @@ public class NoticeService implements INoticeService {
             res = 0;
         }
 
+        https://id.twitch.tv/oauth2/token?client_id=dvz38tsu6jppaoguvjdg3fkrq71bpf&client_secret=yhyiv6epe7rhj3rontwv2iqqkkpozr&grant_type=client_credentials
+
         log.info(this.getClass().getName() + ".insertNoticeInfo End!");
 
         return res;
@@ -117,6 +119,9 @@ public class NoticeService implements INoticeService {
         log.info(this.getClass().getName() + ".updateNoticeInfo Start!");
 
         int res = 0;
+
+        // 최근 날짜 수정하기
+        pDTO.setChg_dt(SimpleDateFormat.getDateInstance().format(new Date()));
 
         // MongoDB에 데이터 새로고침하기
         res = noticeMapper.updateNoticeInfo(pDTO, colNm);

@@ -4,6 +4,9 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="kopo.poly.dto.NoticeDTO" %>
 <%@ page import="kopo.poly.util.CmmUtil" %>
+<%
+    String SS_USER_ID = (String) session.getAttribute("SS_USER_ID");
+%>
 
 <%
     session.setAttribute("SESSION_USER_ID", "USER01"); //세션 강제 적용, 로그인된 상태로 보여주기 위함

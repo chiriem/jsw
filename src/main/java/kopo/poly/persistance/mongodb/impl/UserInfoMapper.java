@@ -3,6 +3,7 @@ package kopo.poly.persistance.mongodb.impl;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Indexes;
 import kopo.poly.dto.UserInfoDTO;
 import kopo.poly.persistance.mongodb.AbstractMongoDBComon;
 import kopo.poly.persistance.mongodb.IUserInfoMapper;
@@ -28,7 +29,12 @@ public class UserInfoMapper extends AbstractMongoDBComon implements IUserInfoMap
 
         // 컬렉션이 없다면 생성하기
         if(!mongodb.collectionExists(colNm)) {
+
+            // 컬렉션 생성
             super.createCollection(colNm);
+            // 인덱스 생성
+            mongodb.getCollection(colNm).createIndex(Indexes.ascending("user_seq"));
+
         }
 
         // MongoDB 컬렉션 지정하기
@@ -61,10 +67,8 @@ public class UserInfoMapper extends AbstractMongoDBComon implements IUserInfoMap
 
         // 조회 결과 중 출력할 컬럼들(SQL의 SELECT절과 FROM절 가운데 컬럼들과 유사함)
         Document projection = new Document();
-        projection.append("user_id", pDTO.getUser_id());
-        projection.append("email", pDTO.getEmail());
-
-        log.info("user_id" + projection);
+        projection.append("user_id", CmmUtil.nvl(pDTO.getUser_id()));
+        projection.append("email", CmmUtil.nvl(pDTO.getEmail()));
 
         // 결과 값을 카운트한다.
         long ll = col.countDocuments(projection);
@@ -92,8 +96,8 @@ public class UserInfoMapper extends AbstractMongoDBComon implements IUserInfoMap
 
         // 찾아야 할 쿼리값 생성
         Document query = new Document();
-        query.append("user_id", pDTO.getUser_id());
-        query.append("user_pw", pDTO.getUser_pw());
+        query.append("user_id", CmmUtil.nvl(pDTO.getUser_id()));
+        query.append("user_pw", CmmUtil.nvl(pDTO.getUser_pw()));
 
         // 조회 결과 중 출력할 컬럼들(SQL의 SELECT절과 FROM절 가운데 컬럼들과 유사함)
         Document projection = new Document();
@@ -102,7 +106,6 @@ public class UserInfoMapper extends AbstractMongoDBComon implements IUserInfoMap
         projection.append("email", "$email");
 
         // 조건에 맞는 값을 검색
-//        FindIterable<Document> rs = col.find(new Document(query)).projection(projection);
         FindIterable<Document> rs = col.find(query).projection(projection);
 
         // 결과값은 하나니까 첫번째 값만 가져옴.

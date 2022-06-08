@@ -1,3 +1,4 @@
+<%@ page import="kopo.poly.persistance.mongodb.impl.UserInfoMapper" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -132,6 +133,9 @@
 </head>
 
 <body>
+<%
+    UserInfoMapper info = (UserInfoMapper) session.getAttribute("info");
+%>
 <div class="container-xxl position-relative bg-white d-flex p-0">
     <!-- Spinner Start -->
     <div id="spinner"
@@ -191,6 +195,11 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                         <a href="Setting" class="dropdown-item">My Profile</a>
+                        <% if(info != null){ %>
+                        <a href="/Logout" class="dropdown-item">로그아웃<a>
+                                <%} else {%>
+                            <a href ="/user/loginForm" class="dropdown-item">login<a>
+                                    <%} %>
                     </div>
                 </div>
             </div>

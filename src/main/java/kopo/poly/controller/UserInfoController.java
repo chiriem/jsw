@@ -23,7 +23,6 @@ import javax.servlet.http.HttpSession;
 public class UserInfoController {
 
     /**
-     *
      * 비즈니스 로직(중요 로직을 수행하기 위해 사용되는 서비스를 메모리에 적재(싱글톤패턴 적용됨)
      */
     @Resource(name = "UserInfoService")
@@ -41,7 +40,7 @@ public class UserInfoController {
     /**
      * 회원가입 화면으로 이동
      */
-    @GetMapping(value = "user/userRegForm")
+    @GetMapping(value = "user/UserRegForm")
     public String userRegForm() {
 
         log.info(this.getClass().getName() + ".user/userRegForm ok!");
@@ -51,8 +50,8 @@ public class UserInfoController {
 
     /**
      * 회원가입 로직 처리
-     * */
-    @RequestMapping(value="user/insertUserInfo")
+     */
+    @RequestMapping(value = "user/insertUserInfo")
     public String insertUserInfo(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
 
         log.info(this.getClass().getName() + ".insertUserInfo start!");
@@ -63,7 +62,7 @@ public class UserInfoController {
         //웹(회원정보 입력화면)에서 받는 정보를 저장할 변수
         UserInfoDTO pDTO = null;
 
-        try{
+        try {
 
             /*
              * #######################################################
@@ -92,12 +91,12 @@ public class UserInfoController {
              *                   반드시 작성할 것
              * #######################################################
              * */
-            log.info("user_id : "+ user_id);
-            log.info("user_name : "+ user_nm);
-            log.info("password : "+ user_pw);
-            log.info("email : "+ email);
-            log.info("addr1 : "+ addr1);
-            log.info("addr2 : "+ addr2);
+            log.info("user_id : " + user_id);
+            log.info("user_name : " + user_nm);
+            log.info("password : " + user_pw);
+            log.info("email : " + email);
+            log.info("addr1 : " + addr1);
+            log.info("addr2 : " + addr2);
 
 
             /*
@@ -136,27 +135,27 @@ public class UserInfoController {
              * */
             int res = userInfoService.insertUserInfo(pDTO, colNm);
 
-            log.info("회원가입 결과(res) : "+ res);
+            log.info("회원가입 결과(res) : " + res);
 
-            if (res==1) {
+            if (res == 1) {
                 msg = "회원가입되었습니다.";
 
                 //추후 회원가입 입력화면에서 ajax를 활용해서 아이디 중복, 이메일 중복을 체크하길 바람
-            }else if (res==2){
+            } else if (res == 2) {
                 msg = "이미 가입된 이메일 주소입니다.";
 
-            }else {
+            } else {
                 msg = "오류로 인해 회원가입이 실패하였습니다.";
 
             }
 
-        }catch(Exception e){
+        } catch (Exception e) {
             //저장이 실패되면 사용자에게 보여줄 메시지
-            msg = "실패하였습니다. : "+ e.toString();
+            msg = "실패하였습니다. : " + e.toString();
             log.info(e.toString());
             e.printStackTrace();
 
-        }finally{
+        } finally {
             log.info(this.getClass().getName() + ".insertUserInfo end!");
 
 
@@ -177,19 +176,26 @@ public class UserInfoController {
 
     /**
      * 로그인을 위한 입력 화면으로 이동
-     * */
-    @RequestMapping(value="user/loginForm")
+     */
+    @RequestMapping(value = "user/loginForm")
     public String loginForm() {
         log.info(this.getClass().getName() + ".user/loginForm ok!");
 
         return "/user/LoginForm";
     }
 
+    @RequestMapping(value = "user/UseradjustForm")
+    public String adjustForm() {
+        log.info(this.getClass().getName() + ".user/loginForm ok!");
+
+        return "/user/UseradjustForm";
+    }
+
 
     /**
      * 로그인 처리 및 결과 알려주는 화면으로 이동
-     * */
-    @RequestMapping(value="user/getUserLoginCheck")
+     */
+    @RequestMapping(value = "user/getUserLoginCheck")
     public String getUserLoginCheck(HttpSession session, HttpServletRequest request, HttpServletResponse response,
                                     ModelMap model) throws Exception {
         log.info(this.getClass().getName() + ".getUserLoginCheck start!");
@@ -200,7 +206,7 @@ public class UserInfoController {
         //웹(회원정보 입력화면)에서 받는 정보를 저장할 변수
         UserInfoDTO pDTO = null;
 
-        try{
+        try {
 
             /*
              * #######################################################
@@ -225,8 +231,8 @@ public class UserInfoController {
              *                   반드시 작성할 것
              * #######################################################
              * */
-            log.info("user_id : "+ user_id);
-            log.info("password : "+ password);
+            log.info("user_id : " + user_id);
+            log.info("password : " + password);
 
             /*
              * #######################################################
@@ -256,7 +262,7 @@ public class UserInfoController {
             // 로그인을 위해 아이디와 비밀번호가 일치하는지 확인하기 위한 userInfoService 호출하기
             res = userInfoService.getUserLoginCheck(pDTO, colNm);
 
-            log.info("res : "+ res);
+            log.info("res : " + res);
             /*
              * 로그인을 성공했다면, 회원아이디 정보를 session에 저장함
              *
@@ -282,13 +288,13 @@ public class UserInfoController {
                 session.setAttribute("SS_USER_ID", user_id);
             }
 
-        }catch(Exception e){
+        } catch (Exception e) {
             //저장이 실패되면 사용자에게 보여줄 메시지
             res = 2;
             log.info(e.toString());
             e.printStackTrace();
 
-        }finally{
+        } finally {
             log.info(this.getClass().getName() + ".insertUserInfo end!");
 
             /* 로그인 처리 결과를 jsp에 전달하기 위해 변수 사용
@@ -302,7 +308,18 @@ public class UserInfoController {
 
         }
 
-        return "/user/LoginResult";
+        return "redirect:/index";
+    }
+
+    @RequestMapping("/logout")
+    public String UserLogout(HttpSession session) throws Exception {
+        log.info(this.getClass().getName() + ".Logout start!");
+
+        session.invalidate();
+
+        log.info(this.getClass().getName() + ".Logout end!");
+
+        return "redirect:/index";
     }
 
 }

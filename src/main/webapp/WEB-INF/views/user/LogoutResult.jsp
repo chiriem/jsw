@@ -9,15 +9,15 @@
 <html>
 <head>
     <meta charset="EUC-KR">
-    <title>로그인되었습니다.</title>
+    <title>로그아웃되었습니다.</title>
     <%
         String msg = "";
-        if (res.equals("1")) {
-            msg = SS_USER_ID + "님 환영합니다!";
-        } else if (res.equals("0")) {
-            msg = "아이디, 비밀번호가 일치하지 않습니다";
+        if (res.equals("0")) {
+            msg = SS_USER_ID + "로그아웃 완료!";
+        } else if (res == null) {
+            msg = "바랍니다" + res;
         } else {
-            msg = "시스템에 문제가 발생하였습니다. 잠시 후 다시 시도하여 주시길 바랍니다";
+            msg = "시스템에 문제가 발생하였습니다. 잠시 후 다시 시도하여 주시길 바랍니다" + res;
         }
     %>
 </head>

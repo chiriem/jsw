@@ -3,6 +3,9 @@
 <%@ page import="kopo.poly.util.CmmUtil" %>
 <%@ page import="kopo.poly.dto.NoticeDTO" %>
 <%
+	String SS_USER_ID = (String) session.getAttribute("SS_USER_ID");
+%>
+<%
 NoticeDTO rDTO = (NoticeDTO)request.getAttribute("rDTO");
 
 //공지글 정보를 못불러왔다면, 객체 생성

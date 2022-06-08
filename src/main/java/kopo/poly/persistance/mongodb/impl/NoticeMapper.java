@@ -1,13 +1,13 @@
 package kopo.poly.persistance.mongodb.impl;
 
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.client.FindIterable;
-import com.mongodb.client.MongoCollection;
 import kopo.poly.dto.NoticeDTO;
 import kopo.poly.persistance.mongodb.AbstractMongoDBComon;
 import kopo.poly.persistance.mongodb.INoticeMapper;
 import kopo.poly.util.CmmUtil;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.client.FindIterable;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.model.Indexes;
 import lombok.extern.slf4j.Slf4j;
 import org.bson.Document;
 import org.springframework.stereotype.Component;
@@ -29,6 +29,16 @@ public class NoticeMapper extends AbstractMongoDBComon implements INoticeMapper 
 
         // 조회 결과를 전달하기 위한 객체 생성하기
         List<NoticeDTO> rList = new LinkedList<>();
+
+        // 컬렉션이 없다면 생성하기
+        if(!mongodb.collectionExists(colNm)) {
+
+            // 컬렉션 생성
+            super.createCollection(colNm);
+            // 인덱스 생성
+            mongodb.getCollection(colNm).createIndex(Indexes.ascending("notice_seq"));
+
+        }
 
         // MongoDB 컬렉션 지정하기
         MongoCollection<Document> col = mongodb.getCollection(colNm);
@@ -244,6 +254,23 @@ public class NoticeMapper extends AbstractMongoDBComon implements INoticeMapper 
         // MongoDB 컬렉션 지정하기
         MongoCollection<Document> col = mongodb.getCollection(colNm);
 
+        // 조회 결과 중 출력할 컬럼들(SQL의 SELECT절과 FROM절 가운데 컬럼들과 유사함)
+        Document projection = new Document();
+        projection.append("notice_seq", "$notice_seq");
+
+        // MongoDB의 find 명령어를 통해 조회할 경우 사용함
+        // 조회하는 데이터의 양이 적은 경우, find를 사용하고, 데이터양이 많은 경우 무조건 Aggregate 사용한다.
+        FindIterable<Document> rs = col.find(new Document("notice_seq", pDTO.getNotice_seq())).projection(projection);
+
+        // 한줄로 append해서 수정할 필드 추가해도 되지만, 가독성이 떨어져 줄마다 append 함
+        Document updateDoc = new Document();
+        updateDoc.append("title", CmmUtil.nvl(pDTO.getTitle())); // 기존 필드 수정
+        updateDoc.append("contents", CmmUtil.nvl(pDTO.getContents())); // 기존 필드 수정
+        updateDoc.append("chg_id", CmmUtil.nvl(pDTO.getChg_id())); // 기존 필드 수정
+        updateDoc.append("chg_dt", CmmUtil.nvl(pDTO.getChg_dt())); // 기존 필드 수정
+
+        rs.forEach(doc -> col.updateOne(doc, new Document("$set", updateDoc)));
+
         log.info(this.getClass().getName() + ".updateNoticeInfo End!");
 
         return res;
@@ -262,6 +289,17 @@ public class NoticeMapper extends AbstractMongoDBComon implements INoticeMapper 
 
         // MongoDB 컬렉션 지정하기
         MongoCollection<Document> col = mongodb.getCollection(colNm);
+
+        // 조회할 조건
+        Document query = new Document();
+        query.append("notice_seq", CmmUtil.nvl(pDTO.getNotice_seq()));
+
+        // MongoDB 데이터 삭제는 반드시 컬렉션으 조회하고, 조회된 ObjectID를 기반으로 데이터를 삭제함
+        // MongoDB 환경은 분산환경(Sharding)으로 구성될 수 있기 때문에 정확한 PX에 매핑하기 위해서임
+        FindIterable<Document> rs = col.find(query);
+
+        // 전체 컬랙션에 있는 데이터를 삭제하기
+        rs.forEach(doc -> col.deleteOne(doc));
 
         log.info(this.getClass().getName() + ".deleteNoticeInfo End!");
 

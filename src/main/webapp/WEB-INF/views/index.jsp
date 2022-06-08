@@ -1,5 +1,16 @@
 <%@ page import="kopo.poly.service.impl.UserInfoService" %>
 <%@ page import="kopo.poly.persistance.mongodb.impl.UserInfoMapper" %>
+<%@ page import="kopo.poly.controller.UserInfoController" %>
+<%@ page import="kopo.poly.util.CmmUtil" %>
+<%
+	String SS_USER_ID = (String) session.getAttribute("SS_USER_ID");
+%>
+<%
+	String msg = "";
+	if (SS_USER_ID != null) {
+		msg = SS_USER_ID + "님 환영합니다!";
+	}
+%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 		 pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -39,9 +50,7 @@
 </head>
 
 <body>
-<%
-	UserInfoMapper info = (UserInfoMapper) session.getAttribute("info");
-%>
+
 <div class="container-xxl position-relative bg-white d-flex p-0">
 	<!-- Spinner Start -->
 	<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -73,7 +82,7 @@
 	<div class="content">
 		<!-- Navbar Start -->
 		<nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-			<a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+			<a href="index" class="navbar-brand d-flex d-lg-none me-4">
 				<h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
 			</a>
 			<a href="#" class="sidebar-toggler flex-shrink-0">
@@ -90,7 +99,12 @@
 					</a>
 					<div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
 						<a href="/Setting" class="dropdown-item">My Profile</a>
-						<a href="/login" class="dropdown-item">login</a>
+						<% if(SS_USER_ID != null){ %>
+							<a href="/logout" class="dropdown-item">Log out<a>
+									<%} else {%>
+								<a href ="/user/loginForm" class="dropdown-item">Sign in<a>
+									<a href="/user/UserRegForm" class="dropdown-item">Sign up</a>
+										<%} %>
 					</div>
 				</div>
 			</div>
@@ -108,6 +122,8 @@
 					<div class="bg-light text-center rounded p-4">
 						<div class="d-flex align-items-center justify-content-between mb-4">
 							<h6 class="mb-0">실시간 / 예정</h6>
+							<h6><%=msg %></h6>
+
 							<!-- <a href="">Show All</a> -->
 
 						</div>

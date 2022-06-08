@@ -5,8 +5,8 @@ import kopo.poly.service.INoticeService;
 import kopo.poly.util.CmmUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -42,9 +42,8 @@ public class NoticeController {
     /**
      * 게시판 리스트 보여주기
      * */
-    @RequestMapping(value="notice/NoticeList", method=RequestMethod.GET)
-    public String NoticeList(HttpServletRequest request, HttpServletResponse response,
-                             ModelMap model) throws Exception {
+    @GetMapping(value="notice/NoticeList")
+    public String NoticeList(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
 
         //로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
         log.info(this.getClass().getName() + ".NoticeList start!");
@@ -77,12 +76,13 @@ public class NoticeController {
      * WEB-INF 밑에 존재하는 JSP는 직접 호출할 수 없음
      * 따라서 WEB-INF 밑에 존재하는 JSP를 호출하기 위해서는 반드시 Controller 등록해야함
      * */
-    @RequestMapping(value="notice/NoticeReg", method=RequestMethod.GET)
-    public String NoticeReg(HttpServletRequest request, HttpServletResponse response,
-                            ModelMap model) throws Exception {
+    @GetMapping(value="notice/NoticeReg")
+    public String NoticeReg(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
 
+        //로그 찍기(추후 찍은 로그를 통해 이 함수 호출이 끝났는지 파악하기 용이하다.)
         log.info(this.getClass().getName() + ".NoticeReg start!");
 
+        //로그 찍기(추후 찍은 로그를 통해 이 함수 호출이 끝났는지 파악하기 용이하다.)
         log.info(this.getClass().getName() + ".NoticeReg end!");
 
         return "/notice/NoticeReg";
@@ -92,7 +92,7 @@ public class NoticeController {
     /**
      * 게시판 글 등록
      * */
-    @RequestMapping(value="notice/NoticeInsert", method=RequestMethod.POST)
+    @PostMapping(value="notice/NoticeInsert")
     public String NoticeInsert(HttpSession session, HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
 
         log.info(this.getClass().getName() + ".NoticeInsert start!");
@@ -110,8 +110,8 @@ public class NoticeController {
 
             /*
              * #######################################################
-             * 	 반드시, 값을 받았으면, 꼭 로그를 찍어서 값이 제대로 들어오는지 파악해야함
-             * 						반드시 작성할 것
+             *     반드시, 값을 받았으면, 꼭 로그를 찍어서 값이 제대로 들어오는지 파악해야함
+             *                   반드시 작성할 것
              * #######################################################
              * */
             log.info("user_id : "+ user_id);
@@ -162,7 +162,7 @@ public class NoticeController {
     /**
      * 게시판 상세보기
      * */
-    @RequestMapping(value="notice/NoticeInfo", method=RequestMethod.GET)
+    @GetMapping(value="notice/NoticeInfo")
     public String NoticeInfo(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
 
         log.info(this.getClass().getName() + ".NoticeInfo start!");
@@ -175,8 +175,8 @@ public class NoticeController {
 
         /*
          * #######################################################
-         * 	 반드시, 값을 받았으면, 꼭 로그를 찍어서 값이 제대로 들어오는지 파악해야함
-         * 						반드시 작성할 것
+         *     반드시, 값을 받았으면, 꼭 로그를 찍어서 값이 제대로 들어오는지 파악해야함
+         *                   반드시 작성할 것
          * #######################################################
          * */
         log.info("nSeq : "+ nSeq);
@@ -222,7 +222,7 @@ public class NoticeController {
     /**
      * 게시판 수정 보기
      * */
-    @RequestMapping(value="notice/NoticeEditInfo", method=RequestMethod.GET)
+    @GetMapping(value="notice/NoticeEditInfo")
     public String NoticeEditInfo(HttpServletRequest request, HttpServletResponse response,
                                  ModelMap model) throws Exception {
 
@@ -240,7 +240,7 @@ public class NoticeController {
 
         /*
          * #######################################################
-         * 	공지사항 수정정보 가져오기(상세보기 쿼리와 동일하여, 같은 서비스 쿼리 사용함)
+         *    공지사항 수정정보 가져오기(상세보기 쿼리와 동일하여, 같은 서비스 쿼리 사용함)
          * #######################################################
          */
         NoticeDTO rDTO = noticeService.getNoticeInfo(pDTO, colNm);
@@ -267,7 +267,7 @@ public class NoticeController {
     /**
      * 게시판 글 수정
      * */
-    @RequestMapping(value="notice/NoticeUpdate", method=RequestMethod.POST)
+    @PostMapping(value="notice/NoticeUpdate")
     public String NoticeUpdate(HttpSession session, HttpServletRequest request, HttpServletResponse response,
                                ModelMap model) throws Exception {
 
@@ -325,7 +325,7 @@ public class NoticeController {
     /**
      * 게시판 글 삭제
      * */
-    @RequestMapping(value="notice/NoticeDelete", method=RequestMethod.POST)
+    @PostMapping(value="notice/NoticeDelete")
     public String NoticeDelete(HttpSession session, HttpServletRequest request, HttpServletResponse response,
                                ModelMap model) throws Exception {
 

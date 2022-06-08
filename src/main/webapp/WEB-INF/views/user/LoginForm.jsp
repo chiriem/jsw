@@ -6,7 +6,7 @@
     <title>로그인 화면</title>
     <script type="text/javascript">
         //로그인을 위한 입력정보의 유효성 체크하기
-        function doLgoinUserCheck(f) {
+        function doLoginUserCheck(f) {
 
             if (f.user_id.value == "") {
                 alert("아이디를 입력하세요.");

@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<%
+    String SS_USER_ID = (String) session.getAttribute("SS_USER_ID");
+%>
 <head>
     <meta charset="utf-8">
     <title>MultiStudio - Multiple Streaming Studio</title>
@@ -153,7 +155,12 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                         <a href="/Setting" class="dropdown-item">My Profile</a>
-                        <a href="/login" class="dropdown-item">login</a>
+                        <% if(SS_USER_ID != null){ %>
+                        <a href="/logout" class="dropdown-item">logout<a>
+                                <%} else {%>
+                            <a href ="/user/loginForm" class="dropdown-item">login<a>
+                                    <%} %>
+                                <a href="/user/UserRegForm" class="dropdown-item">Sign up</a>
                     </div>
                 </div>
             </div>

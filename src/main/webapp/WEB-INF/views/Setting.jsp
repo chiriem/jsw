@@ -35,15 +35,18 @@
     <script type="text/javascript">
         function getVideoId() {
 
-            var $gvideo = $('#youtube_url').val();
 
+            var $gvideo = $('#youtube_url').val();
             //get video ID
             var vid;
-            if ($gvideo.indexOf('youtube.com/watch?v=') != -1) {
-                var str1 = $gvideo.split('youtube.com/watch?v=');
+            if ($gvideo.indexOf('youtube.com/channel/') != -1) {
+                var str1 = $gvideo.split('youtube.com/channel/');
                 vid = str1[1];
-            } else if ($gvideo.indexOf('youtu.be/') != -1) {
-                var str1 = $gvideo.split('youtu.be/');
+            } else if ($gvideo.indexOf('youtube.com/c/') != -1) {
+                var str1 = $gvideo.split('youtube.com/c/');
+                vid = str1[1];
+            } else if ($gvideo.indexOf('youtu.be/c/') != -1) {
+                var str1 = $gvideo.split('youtu.be/c/');
                 vid = str1[1];
             }
             if (vid.indexOf('&') != -1) {
@@ -51,12 +54,11 @@
                 vid = str2[0];
             }
             var t_videoId = vid.trim();
-
+            t_videoId = "yt notify add " + t_videoId;
             var result = $('#result_link');
             result.val(t_videoId);
 
             // $("#result_code").append('<input type="text" id="result_link" class="form-control" onclick="this.select();" readonly>');
-
         }
         function copytoclip(){
             $('#result_link').select();
@@ -119,7 +121,7 @@
                             </span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
-                        <a href="Setting" class="dropdown-item">My Profile</a>
+                        <a href="/Setting" class="dropdown-item">My Profile</a>
                     </div>
                 </div>
             </div>
@@ -132,18 +134,19 @@
             <div class="row g-4">
                 <div class="col-sm-12 col-xl-6">
                     <div class="bg-light rounded h-100 p-4">
-                        <h6 class="mb-4">YouTube Key</h6>
+                        <h6 class="mb-4">Getting Key</h6>
+                        <h6 class="mb-4">Getting YouTube Channel Key</h6>
                         <form>
                             <div class="mb-3">
                                 <label class="form-label">Youtube address</label>
                                 <input id="youtube_url" type="text" class="form-control"
                                        placeholder="예: https://www.youtube.com/watch?v=WMweEpGlu_U" aria-label=""
-                                       aria-describedby="button-addon2" style="width: 300px">
+                                       aria-describedby="button-addon2" >
                                 <button class="btn btn-primary notranslate" type="button" onclick="getVideoId()">
                                     GetKey!
                                 </button>
 
-                                <div id="keyHelp" class="form-text">Can get youtube key
+                                <div id="keyHelp" class="form-text">Can get youtube channel key
                                 </div>
                             </div>
                             <div class="mb-3">
