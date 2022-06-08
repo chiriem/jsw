@@ -127,7 +127,7 @@
 							<!-- <a href="">Show All</a> -->
 
 						</div>
-						<a href="https://www.youtube.com/watch?v=H7wJmnm-n-8&ab_channel=FOX5NewYork">dfjoidjfio</a>
+						<a href="SingleStudio">studio</a>
 						<!-- <canvas id="worldwide-sales"></canvas> -->
 					</div>
 				</div>
