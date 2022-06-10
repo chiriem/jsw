@@ -154,6 +154,7 @@ public class UserInfoMapper extends AbstractMongoDBComon implements IUserInfoMap
         // 한줄로 append해서 수정할 필드 추가해도 되지만, 가독성이 떨어져 줄마다 append 함
         Document updateDoc = new Document();
         updateDoc.append("user_nm", CmmUtil.nvl(pDTO.getUser_nm())); // 기존 필드 수정
+        updateDoc.append("user_pw", CmmUtil.nvl(pDTO.getUser_pw())); // 기존 필드 수정
         updateDoc.append("age", CmmUtil.nvl(pDTO.getAge())); // 기존 필드 수정
         updateDoc.append("chg_id", CmmUtil.nvl(pDTO.getChg_id())); // 기존 필드 수정
         updateDoc.append("chg_dt", CmmUtil.nvl(pDTO.getChg_dt())); // 기존 필드 수정

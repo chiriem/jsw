@@ -43,6 +43,8 @@ public class SStudioController {
         //로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
         log.info(this.getClass().getName() + ".getYtaddress start!");
 
+//        String ss_user_id = (String) session.getAttribute("SS_USER_ID");
+
         //유튜브 주소 가져오기
         List<SStudioDTO> rList = sStudioService.getYtaddress(colNm);
 
@@ -71,6 +73,57 @@ public class SStudioController {
 
         return "SingleST/SStud";
     }
+
+//    @GetMapping(value="SingleST/SStud")
+//    public String SStudioInfo(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
+//
+//        log.info(this.getClass().getName() + ".SStudiowatch start!");
+//
+//
+//        /*
+//         * 게시판 글 등록되기 위해 사용되는 form객체의 하위 input 객체 등을 받아오기 위해 사용함
+//         * */
+//        String nSeq = CmmUtil.nvl(request.getParameter("nSeq")); //유튜브번호(PK)
+//
+//        /*
+//         * #######################################################
+//         *     반드시, 값을 받았으면, 꼭 로그를 찍어서 값이 제대로 들어오는지 파악해야함
+//         *                   반드시 작성할 것
+//         * #######################################################
+//         * */
+//        log.info("nSeq : "+ nSeq);
+//
+//
+//        /*
+//         * 값 전달은 반드시 DTO 객체를 이용해서 처리함
+//         * 전달 받은 값을 DTO 객체에 넣는다.
+//         * */
+//        SStudioDTO pDTO = new SStudioDTO();
+//
+//
+//        pDTO.setYt_seq(nSeq);
+//
+//        //공지사항 상세정보 가져오기
+//        SStudioDTO rDTO = sStudioService.getYtaddress(pDTO, colNm);
+//
+//        if (rDTO==null){
+//            rDTO = new SStudioDTO();
+//
+//        }
+//
+//        log.info("getNoticeInfo success!!!");
+//
+//        //조회된 리스트 결과값 넣어주기
+//        model.addAttribute("rDTO", rDTO);
+//
+//        //변수 초기화(메모리 효율화 시키기 위해 사용함)
+//        rDTO = null;
+//        pDTO = null;
+//
+//        log.info(this.getClass().getName() + ".SStudiowatch end!");
+//
+//        return "/SingleST/SStud";
+//    }
 
     /**
      * 주소 입력 화면으로 이동

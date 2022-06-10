@@ -146,4 +146,56 @@ public class SStudioMapper extends AbstractMongoDBComon implements ISStudioMappe
 
         return rList;
     }
+
+    @Override
+    public SStudioDTO getYoutubeInfo(SStudioDTO pDTO, String colNm) throws Exception {
+
+        log.info(this.getClass().getName() + ".getYoutubeInfo Start!");
+
+        // 조회 결과를 전달하기 위한 객체 생성하기
+        SStudioDTO rDTO = new SStudioDTO();
+
+        // MongoDB 컬렉션 지정하기
+        MongoCollection<Document> col = mongodb.getCollection(colNm);
+
+
+
+        // 조회 결과 중 출력할 컬럼들(SQL의 SELECT절과 FROM절 가운데 컬럼들과 유사함)
+        Document projection = new Document();
+        projection.append("yt_seq", "$yt_seq");
+        projection.append("user_id", "$user_id");
+        projection.append("yt_address", "$yt_address");
+
+        // MongoDB의 find 명령어를 통해 조회할 경우 사용함
+        // 조회하는 데이터의 양이 적은 경우, find를 사용하고, 데이터양이 많은 경우 무조건 Aggregate 사용한다.
+        FindIterable<Document> rs = col.find(new Document("yt_seq", pDTO.getYt_seq())).projection(projection);
+
+        for (Document doc : rs) {
+
+            if (doc == null) {
+
+                doc = new Document();
+
+            }
+
+            // 조회 테스트
+            String yt_seq = CmmUtil.nvl(doc.getString("yt_seq"));
+            String user_id = CmmUtil.nvl(doc.getString("user_id"));
+            String yt_address = CmmUtil.nvl(doc.getString("yt_address"));
+
+            log.info("yt_seq : " + yt_seq);
+            log.info("user_id : " + user_id);
+            log.info("yt_address : " + yt_address);
+
+            // rDTO에 값 집어넣기
+            rDTO.setYt_seq(yt_seq);
+            rDTO.setUser_id(user_id);
+            rDTO.setYt_address(yt_address);
+
+        }
+
+        log.info(this.getClass().getName() + ".getYoutubeInfo End!");
+
+        return rDTO;
+    }
 }

@@ -98,9 +98,7 @@
                         $("#youtube_desc").append(vDe);
                     })
                 }
-            );
-
-        });
+            )});
     </script>
 
 </head>

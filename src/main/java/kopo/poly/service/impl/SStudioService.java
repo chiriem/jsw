@@ -50,7 +50,7 @@ public class SStudioService implements ISStudioService {
         if (CmmUtil.nvl(rDTO.getExists_yn()).equals("Y")) {
             res = 2;
 
-            // 회원가입이 중복이 아니므로, 회원가입 진행함
+            // 중복이 아니므로, 정보 기입 진행함
         } else {
 
             // 문제 없으면 시퀸스 증가와 함께 넣기
@@ -60,7 +60,7 @@ public class SStudioService implements ISStudioService {
             // 정보입력
             int success = sStudioMapper.insertYtAddress(pDTO, colNm);
 
-            // db에 데이터가 등록되었다면(회원가입 성공했다면....
+            // db에 데이터가 등록되었다면(
             if (success > 0) {
                 res = 1;
 
@@ -82,6 +82,8 @@ public class SStudioService implements ISStudioService {
 
         // 조회 결과를 전달하기 위한 객체 생성하기
         List<SStudioDTO> rList = new LinkedList<>();
+
+        String ss_user_id = "aaaa";
 
         // 조회 결과 담기
         rList = sStudioMapper.getYtaddress(colNm);

@@ -375,9 +375,8 @@ public class UserInfoController {
             pDTO.setUser_id(user_id);
             pDTO.setUser_nm(user_nm);
 
-            //비밀번호, 이메일은 절대로 복호화되지 않도록 해시 알고리즘으로 암호화함
+            //비밀번호는 절대로 복호화되지 않도록 해시 알고리즘으로 암호화함
             pDTO.setUser_pw(EncryptUtil.encHashSHA256(user_pw));
-
 
             pDTO.setAge(age);
 
