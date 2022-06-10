@@ -38,6 +38,12 @@
                 return false;
             }
 
+            if (f.email.value == "") {
+                alert("이메일 입력하세요.");
+                f.email.focus();
+                return false;
+            }
+
             if (f.user_nm.value == "") {
                 alert("이름을 입력하세요.");
                 f.user_nm.focus();

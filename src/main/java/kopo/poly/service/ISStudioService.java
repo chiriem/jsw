@@ -2,6 +2,8 @@ package kopo.poly.service;
 
 import kopo.poly.dto.SStudioDTO;
 
+import java.util.List;
+
 public interface ISStudioService {
 
     /**
@@ -12,6 +14,8 @@ public interface ISStudioService {
      * @return 저장 성공 여부
      * @throws Exception
      */
-    int insertYoutubeaddress(SStudioDTO pDTO, String colNm) throws Exception;
+    int insertYtaddress(SStudioDTO pDTO, String colNm) throws Exception;
+
+    List<SStudioDTO> getYtaddress(String colNm) throws Exception;
 
 }

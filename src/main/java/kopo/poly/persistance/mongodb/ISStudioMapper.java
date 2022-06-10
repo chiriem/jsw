@@ -2,6 +2,8 @@ package kopo.poly.persistance.mongodb;
 
 import kopo.poly.dto.SStudioDTO;
 
+import java.util.List;
+
 public interface ISStudioMapper {
 
     /**
@@ -12,8 +14,9 @@ public interface ISStudioMapper {
      * @return 저장 성공 여부
      * @throws Exception
      */
-    int insertYoutubeAddress(SStudioDTO pDTO, String colNm) throws Exception;
+    int insertYtAddress(SStudioDTO pDTO, String colNm) throws Exception;
 
-//    UserInfoDTO getYoutubeExists(SStudioDTO pDTO, String colNm) throws Exception;
+    SStudioDTO getYtExists(SStudioDTO pDTO, String colNm) throws Exception;
 
+    List<SStudioDTO> getYtaddress(String colNm) throws Exception;
 }

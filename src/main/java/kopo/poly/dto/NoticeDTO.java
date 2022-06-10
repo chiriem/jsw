@@ -24,7 +24,6 @@ public class NoticeDTO {
 
 	String notice_seq; // 기본키, 순번
 	String title; // 제목
-	String notice_yn; // 공지글 여부
 	String contents; // 글 내용
 	String user_id; // 작성자
 	String read_cnt; // 조회수

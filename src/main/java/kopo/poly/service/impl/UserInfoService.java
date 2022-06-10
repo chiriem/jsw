@@ -144,4 +144,47 @@ public class UserInfoService implements IUserInfoService {
         return res;
     }
 
+    public int updateUserInfo(UserInfoDTO pDTO, String colNm) throws Exception {
+
+        // 로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
+        log.info(this.getClass().getName() + ".updateUserInfo Start!");
+
+        int res = 0;
+
+        // 수정자 넣기
+        pDTO.setChg_id(pDTO.getUser_id());
+
+        log.info("chg_id : " + pDTO.getChg_id() );
+
+        // 날짜 넣기
+        pDTO.setChg_dt(SimpleDateFormat.getDateInstance().format(new Date()));
+
+        log.info("chg_dt : " + pDTO.getChg_dt() );
+
+        // controller에서 값이 정상적으로 못 넘어오는 경우를 대비하기 위해 사용함
+        if (pDTO == null) {
+            pDTO = new UserInfoDTO();
+        }
+
+        // 회원가입
+        int success = userInfoMapper.updateUserInfo(pDTO, colNm);
+
+        // db에 데이터가 등록되었다면(회원가입 성공했다면....
+        if (success > 0) {
+
+            res = 1;
+
+        } else {
+
+            res = 0;
+
+        }
+
+//        }
+        // 로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
+        log.info(this.getClass().getName() + ".updateUserInfo End!");
+
+        return res;
+    }
+
 }

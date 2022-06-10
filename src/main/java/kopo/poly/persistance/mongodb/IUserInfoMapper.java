@@ -34,4 +34,8 @@ public interface IUserInfoMapper {
      */
     UserInfoDTO getUserLoginCheck(UserInfoDTO pDTO, String colNm) throws Exception;
 
+    int updateUserInfo(UserInfoDTO pDTO, String colNm) throws Exception;
+
+    int deleteUserInfo(UserInfoDTO pDTO, String colNm) throws Exception;
+
 }

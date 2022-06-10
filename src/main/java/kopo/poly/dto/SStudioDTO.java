@@ -22,13 +22,13 @@ import lombok.Setter;
 @Setter
 public class SStudioDTO {
 
-    String sequence;
+    String yt_seq; // 유튜브주소 번호
     String user_id; // 아이디
-    String youtube_address; // 유튜브 주소
-//
-//    // 정보 입력 시, 중복가입을 방지를 위해 사용할 변수
-//    // DB를 조회해서 회원이 존재하면 Y값을 반환함.
-//    // DB테이블에 존재하지 않는 가상의 컬럼(ALIAS)
-//    String exists_yn;
+    String yt_address; // 유튜브 주소
+
+    // 정보 입력 시, 중복가입을 방지를 위해 사용할 변수
+    // DB를 조회해서 회원이 존재하면 Y값을 반환함.
+    // DB테이블에 존재하지 않는 가상의 컬럼(ALIAS)
+    String exists_yn;
 
 }

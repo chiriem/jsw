@@ -90,7 +90,6 @@ public class UserInfoController {
              * #######################################################
              * */
             log.info("user_id : " + user_id);
-            log.info("user_name : " + user_nm);
             log.info("password : " + user_pw);
             log.info("age : " + age);
 
@@ -110,7 +109,7 @@ public class UserInfoController {
             pDTO.setUser_id(user_id);
             pDTO.setUser_nm(user_nm);
 
-            //비밀번호는 절대로 복호화되지 않도록 해시 알고리즘으로 암호화함
+            //비밀번호,이메일은 절대로 복호화되지 않도록 해시 알고리즘으로 암호화함
             pDTO.setUser_pw(EncryptUtil.encHashSHA256(user_pw));
 
 
@@ -161,7 +160,7 @@ public class UserInfoController {
 
         }
 
-        return "redirect:/index";
+        return "redirect:/user/loginForm";
     }
 
 
@@ -177,7 +176,7 @@ public class UserInfoController {
 
     @RequestMapping(value = "user/UseradjustForm")
     public String adjustForm() {
-        log.info(this.getClass().getName() + ".user/loginForm ok!");
+        log.info(this.getClass().getName() + ".user/adjustForm ok!");
 
         return "/user/UseradjustForm";
     }
@@ -312,5 +311,143 @@ public class UserInfoController {
 
         return "redirect:/index";
     }
+
+    /**
+     * 회원수정 로직 처리
+     * */
+    @GetMapping(value="user/updateUserInfo")
+    public String updateUserInfo(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
+
+        log.info(this.getClass().getName() + ".updateUserInfo start!");
+
+        //회원수정 결과에 대한 메시지를 전달할 변수
+        String msg = "";
+
+        //웹(회원정보 입력화면)에서 받는 정보를 저장할 변수
+        UserInfoDTO pDTO = null;
+
+        try{
+
+            /*
+             * #######################################################
+             *        웹(회원정보 입력화면)에서 받는 정보를 String 변수에 저장 시작!!
+             *
+             *    무조건 웹으로 받은 정보는 DTO에 저장하기 위해 임시로 String 변수에 저장함
+             * #######################################################
+             */
+
+            String user_id = CmmUtil.nvl(request.getParameter("user_id")); //이름
+            String user_nm = CmmUtil.nvl(request.getParameter("user_nm")); //이름
+            String user_pw = CmmUtil.nvl(request.getParameter("user_pw")); //비밀번호
+            String age = CmmUtil.nvl(request.getParameter("age")); //출생년도
+            /*
+             * #######################################################
+             *        웹(회원정보 입력화면)에서 받는 정보를 String 변수에 저장 끝!!
+             *
+             *    무조건 웹으로 받은 정보는 DTO에 저장하기 위해 임시로 String 변수에 저장함
+             * #######################################################
+             */
+
+            /*
+             * #######################################################
+             *     반드시, 값을 받았으면, 꼭 로그를 찍어서 값이 제대로 들어오는지 파악해야함
+             *                   반드시 작성할 것
+             * #######################################################
+             * */
+            log.info("user_id : "+ user_id);
+            log.info("user_name : "+ user_nm);
+            log.info("password : "+ user_pw);
+            log.info("age : "+ age);
+
+
+            /*
+             * #######################################################
+             *        웹(회원정보 입력화면)에서 받는 정보를 DTO에 저장하기 시작!!
+             *
+             *        무조건 웹으로 받은 정보는 DTO에 저장해야 한다고 이해하길 권함
+             * #######################################################
+             */
+
+
+            //웹(회원정보 입력화면)에서 받는 정보를 저장할 변수를 메모리에 올리기
+            pDTO = new UserInfoDTO();
+
+            pDTO.setUser_id(user_id);
+            pDTO.setUser_nm(user_nm);
+
+            //비밀번호, 이메일은 절대로 복호화되지 않도록 해시 알고리즘으로 암호화함
+            pDTO.setUser_pw(EncryptUtil.encHashSHA256(user_pw));
+
+
+            pDTO.setAge(age);
+
+            /*
+             * #######################################################
+             *        웹(회원정보 입력화면)에서 받는 정보를 DTO에 저장하기 끝!!
+             *
+             *        무조건 웹으로 받은 정보는 DTO에 저장해야 한다고 이해하길 권함
+             * #######################################################
+             */
+
+            /*
+             * 회원가입
+             * */
+            int res = userInfoService.updateUserInfo(pDTO, colNm);
+
+            log.info("회원가입 결과(res) : "+ res);
+
+            if (res==1) {
+                msg = "회원수정 되었습니다.";
+
+                //추후 회원가입 입력화면에서 ajax를 활용해서 아이디 중복, 이메일 중복을 체크하길 바람
+            }else {
+                msg = "오류로 인해 회원수정이 실패하였습니다.";
+
+            }
+
+        }catch(Exception e){
+            //저장이 실패되면 사용자에게 보여줄 메시지
+            msg = "실패하였습니다. : "+ e.toString();
+            log.info(e.toString());
+            e.printStackTrace();
+
+        }finally{
+            log.info(this.getClass().getName() + ".updateUserInfo end!");
+
+
+            //회원수정 여부 결과 메시지 전달하기
+            model.addAttribute("msg", msg);
+
+            //회원수정 여부 결과 메시지 전달하기
+            model.addAttribute("pDTO", pDTO);
+
+            //변수 초기화(메모리 효율화 시키기 위해 사용함)
+            pDTO = null;
+
+        }
+
+        return "redirect:/index";
+    }
+
+    /**
+     * 회원수정 로직 처리
+     * */
+    @GetMapping(value="user/deleteUserInfo")
+    public String deleteUserInfo(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
+
+        log.info(this.getClass().getName() + ".deleteUserInfo start!");
+
+        //회원수정 결과에 대한 메시지를 전달할 변수
+        String msg = "";
+
+        //웹(회원정보 입력화면)에서 받는 정보를 저장할 변수
+        UserInfoDTO pDTO = null;
+
+        log.info(this.getClass().getName() + ".deleteUserInfo End!");
+
+        return "/user/Msg";
+    }
+
+
 
 }

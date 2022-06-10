@@ -24,4 +24,6 @@ public interface IUserInfoService {
      */
     int getUserLoginCheck(UserInfoDTO pDTO, String colNm) throws Exception;
 
+    int updateUserInfo(UserInfoDTO pDTO, String colNm) throws Exception;
+
 }

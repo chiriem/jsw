@@ -65,7 +65,7 @@ public class NoticeController {
         //로그 찍기(추후 찍은 로그를 통해 이 함수 호출이 끝났는지 파악하기 용이하다.)
         log.info(this.getClass().getName() + ".NoticeList end!");
 
-        //함수 처리가 끝나고 보여줄 JSP 파일명(/WEB-INF/view/notice/NoticeList.jsp)
+        //함수 처리가 끝나고 보여줄 링크
         return "/notice/NoticeList";
     }
 
@@ -123,7 +123,7 @@ public class NoticeController {
 
             pDTO.setUser_id(user_id);
             pDTO.setTitle(title);
-            pDTO.setNotice_yn(noticeYn);;
+//            pDTO.setNotice_yn(noticeYn);;
             pDTO.setContents(contents);
 
 
@@ -280,13 +280,13 @@ public class NoticeController {
             String user_id = CmmUtil.nvl((String)session.getAttribute("SESSION_USER_ID")); //아이디
             String nSeq = CmmUtil.nvl(request.getParameter("nSeq")); //글번호(PK)
             String title = CmmUtil.nvl(request.getParameter("title")); //제목
-            String noticeYn = CmmUtil.nvl(request.getParameter("noticeYn")); //공지글 여부
+//            String noticeYn = CmmUtil.nvl(request.getParameter("noticeYn")); //공지글 여부
             String contents = CmmUtil.nvl(request.getParameter("contents")); //내용
 
             log.info("user_id : "+ user_id);
             log.info("nSeq : "+ nSeq);
             log.info("title : "+ title);
-            log.info("noticeYn : "+ noticeYn);
+//            log.info("noticeYn : "+ noticeYn);
             log.info("contents : "+ contents);
 
             NoticeDTO pDTO = new NoticeDTO();
@@ -294,7 +294,7 @@ public class NoticeController {
             pDTO.setUser_id(user_id);
             pDTO.setNotice_seq(nSeq);;
             pDTO.setTitle(title);
-            pDTO.setNotice_yn(noticeYn);;
+//            pDTO.setNotice_yn(noticeYn);
             pDTO.setContents(contents);
 
             //게시글 수정하기 DB

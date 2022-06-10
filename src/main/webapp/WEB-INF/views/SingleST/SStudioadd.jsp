@@ -21,7 +21,7 @@
 <h1>회원가입 화면</h1>
 <br/>
 <br/>
-<form name="f" method="post" action="/user/insertUserInfo" onsubmit="return doRegUserCheck(this);">
+<form name="f" method="post" action="/SingleStudio/insertYtaddress" onsubmit="return doRegUserCheck(this);">
     <table border="1">
         <col width="150px">
         <col width="150px">
@@ -30,11 +30,11 @@
         <tr>
             <td>아이디</td>
             <td><input type="text" name="user_id" style="width:150px"/></td>
-            <td>이름</td>
-            <td><input type="text" name="user_nm" style="width:150px"/></td>
+            <td>주소</td>
+            <td><input type="text" name="yt_address" style="width:150px"/></td>
         </tr>
     </table>
-    <input type="submit" value="회원가입"/>
+    <input type="submit" value="입력"/>
 </form>
 </body>
 </html>

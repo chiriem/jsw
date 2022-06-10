@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="EUC-KR" %>
+<%
+    String SS_USER_ID = (String) session.getAttribute("SS_USER_ID");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,14 +48,15 @@
 <h1>회원가입 화면</h1>
 <br/>
 <br/>
-<form name="f" method="post" action="/user/insertUserInfo" onsubmit="return doRegUserCheck(this);">
+<form name="f" method="GET" action="/user/updateUserInfo" onsubmit="return doRegUserCheck(this);">
     <table border="1">
         <col width="150px">
         <col width="150px">
         <col width="150px">
         <col width="150px">
         <tr>
-
+            <td>아이디 확인</td>
+            <td><input type="text" name="user_id" style="width:150px" value="<%= SS_USER_ID %>" readonly/></td>
             <td>이름</td>
             <td><input type="text" name="user_nm" style="width:150px"/></td>
         </tr>
@@ -63,8 +67,8 @@
             <td><input type="password" name="user_pw2" style="width:150px"/></td>
         </tr>
         <tr>
-            <td>이메일</td>
-            <td colspan="3"><input type="text" name="email" style="width:450px"/></td>
+            <td>출생년도</td>
+            <td colspan="3"><input type="text" name="age" style="width:450px"/></td>
         </tr>
     </table>
     <input type="submit" value="회원가입"/>

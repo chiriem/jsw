@@ -9,7 +9,7 @@
 %>
 
 <%
-    session.setAttribute("SESSION_USER_ID", "USER01"); //세션 강제 적용, 로그인된 상태로 보여주기 위함
+    //    session.setAttribute("SESSION_USER_ID", "USER01"); //세션 강제 적용, 로그인된 상태로 보여주기 위함
 
     List<NoticeDTO> rList = (List<NoticeDTO>) request.getAttribute("rList");
 
@@ -42,13 +42,14 @@
 
     <!-- Libraries Stylesheet -->
     <link href="/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-    <link href="/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <link href="/lib/tempusdominus/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet"/>
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
+    <link href="/css/table_with_div.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
     <script type="text/javascript">
 
@@ -63,7 +64,8 @@
 <body>
 <div class="container-xxl position-relative bg-white d-flex p-0">
     <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div id="spinner"
+         class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
         <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
             <span class="sr-only">Loading...</span>
         </div>
@@ -79,9 +81,11 @@
             </a>
             <div class="navbar-nav w-100">
                 <a href="../index" class="nav-item nav-link"><i class="fa fa-youtube-play" aria-hidden="false"></i>Main</a>
-                <a href="../MultiStudio/MultiStudio" class="nav-item nav-link"><i class="fa fa-youtube-play" aria-hidden="false"></i>MultiStudio</a>
+                <a href="../MultiStudio/MultiStudio" class="nav-item nav-link"><i class="fa fa-youtube-play"
+                                                                                  aria-hidden="false"></i>MultiStudio</a>
                 <a href="NoticeList" class="nav-item nav-link active"><i class="fa fa-book" aria-hidden="false"></i>Notice</a>
-                <a href="../Search2" class="nav-item nav-link"><i class="fa fa-search" aria-hidden="false"></i>Search</a>
+                <a href="../Search2" class="nav-item nav-link"><i class="fa fa-search"
+                                                                  aria-hidden="false"></i>Search</a>
             </div>
         </nav>
     </div>
@@ -109,10 +113,10 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                         <a href="/Setting" class="dropdown-item">My Profile</a>
-                        <% if(SS_USER_ID != null){ %>
+                        <% if (SS_USER_ID != null) { %>
                         <a href="/logout" class="dropdown-item">Log out<a>
                                 <%} else {%>
-                            <a href ="/user/loginForm" class="dropdown-item">Sign in<a>
+                            <a href="/user/loginForm" class="dropdown-item">Sign in<a>
                                 <a href="/user/UserRegForm" class="dropdown-item">Sign up</a>
                                     <%} %>
                     </div>
@@ -129,41 +133,42 @@
                     <h6 class="mb-0">공지사항</h6>
                     <a href="/notice/NoticeReg">[글쓰기]</a>
                 </div>
-                    <div class="table-responsive">
-                        <table class="table text-start align-middle table-bordered table-hover mb-0">
-                            <thead>
-                                <tr class="text-dark">
-                                    <th scope="col">Title</th>
-                                    <th scope="col">Views</th>
-                                    <th scope="col">Regist date</th>
-                                </tr>
-                            </thead>
+                <div class="table-responsive">
+                    <div class="divTable minimalistBlack">
+                        <div class="divTableHeading">
+                            <div class="divTableRow">
+                                <div class="divTableHead">Title</div>
+                                <div class="divTableHead" style="width: 150px">Views</div>
+                                <div class="divTableHead" style="width: 200px">Regist date</div>
+                            </div>
+                        </div>
+
+                        <div class="divTableBody">
                             <%
                                 for (int i = 0; i < rList.size(); i++) {
-                                NoticeDTO rDTO = rList.get(i);
+                                    NoticeDTO rDTO = rList.get(i);
 
                                     if (rDTO == null) {
-                                    rDTO = new NoticeDTO();
-                                }
+                                        rDTO = new NoticeDTO();
+                                    }
 
                             %>
-                            <tbody>
-                                <tr>
-                                    <td align="center">
-                                        <a href="javascript:doDetail('<%=CmmUtil.nvl(rDTO.getNotice_seq())%>');">
-                                            <%=CmmUtil.nvl(rDTO.getTitle()) %>
-                                        </a>
-                                    </td>
-                                    <td align="center"><%=CmmUtil.nvl(rDTO.getRead_cnt()) %>
-                                    </td>
-                                    <td align="center"><%=CmmUtil.nvl(rDTO.getReg_dt()) %>
-                                    </td>
-                                </tr>
+                            <div class="divTableRow">
+                                <div class="divTableCell">
+                                    <a href="javascript:doDetail('<%=CmmUtil.nvl(rDTO.getNotice_seq())%>');">
+                                        <%=CmmUtil.nvl(rDTO.getTitle()) %>
+                                    </a>
+                                </div>
+                                <div class="divTableCell"><%=CmmUtil.nvl(rDTO.getRead_cnt()) %>
+                                </div>
+                                <div class="divTableCell"><%=CmmUtil.nvl(rDTO.getReg_dt()) %>
+                                </div>
+                            </div>
                             <%
                                 }
                             %>
-                            </tbody>
-                        </table>
+                        </div>
+                    </div>
 
                 </div>
             </div>

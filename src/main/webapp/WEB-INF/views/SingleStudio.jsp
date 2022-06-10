@@ -1,5 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <%
     String SS_USER_ID = (String) session.getAttribute("SS_USER_ID");
 %>
@@ -32,41 +34,41 @@
     <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
     <script src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-    <script>
+<%--    <script>--%>
 
-        var playlist = 'CuklIb9d3fI';
-        //https://www.youtube.com/watch?v=유튜브 영상 고유번호
-        //playlist만 원하는 재생목록에 따라 가져오면 됨
+<%--        var playlist = 'CuklIb9d3fI';--%>
+<%--        //https://www.youtube.com/watch?v=유튜브 영상 고유번호--%>
+<%--        //playlist만 원하는 재생목록에 따라 가져오면 됨--%>
 
-        //maxResult는 50 이하
-        $(document).ready(function () {
-            $.get(
-                "https://www.googleapis.com/youtube/v3/videos", {
-                    part: 'snippet',
-                    maxResults: 5,
-                    id: playlist,
-                    key: 'AIzaSyAfJQyw0LqcMkaJi0hCw35NUPyjV7Br-4g'
-                },
+<%--        //maxResult는 50 이하--%>
+<%--        $(document).ready(function () {--%>
+<%--            $.get(--%>
+<%--                "https://www.googleapis.com/youtube/v3/videos", {--%>
+<%--                    part: 'snippet',--%>
+<%--                    maxResults: 5,--%>
+<%--                    id: playlist,--%>
+<%--                    key: 'AIzaSyAfJQyw0LqcMkaJi0hCw35NUPyjV7Br-4g'--%>
+<%--                },--%>
 
-                function (data) {
-                    var output;
-                    $.each(data.items, function (i, item) {
-                        console.log(item);
-                        vTitle = item.snippet.title;
-                        vId = item.snippet.channelId;
-                        vDe = item.snippet.description;
-                        vTh = item.snippet.channelTitle;
-                        vaaa = item.snippet.thumbnails.standard.url;
-                        output = '<li>' + vTitle + '<br>--videodescription: ' + vDe + '<br>--videothumbnails: ' + vTh + '<br></li>';
-                        /*output= '<li>'+vTitle+'<iframe src=\"//www.youtube.com/embed/'+vId+'\"></iframe></li>';*/
-                        $("#results").append(output);
-                    })
-                }
-            );
+<%--                function (data) {--%>
+<%--                    var output;--%>
+<%--                    $.each(data.items, function (i, item) {--%>
+<%--                        console.log(item);--%>
+<%--                        vTitle = item.snippet.title;--%>
+<%--                        vId = item.snippet.channelId;--%>
+<%--                        vDe = item.snippet.description;--%>
+<%--                        vTh = item.snippet.channelTitle;--%>
+<%--                        vaaa = item.snippet.thumbnails.standard.url;--%>
+<%--                        output = '<li>' + vTitle + '<br>--videodescription: ' + vDe + '<br>--videothumbnails: ' + vTh + '<br></li>';--%>
+<%--                        /*output= '<li>'+vTitle+'<iframe src=\"//www.youtube.com/embed/'+vId+'\"></iframe></li>';*/--%>
+<%--                        $("#results").append(output);--%>
+<%--                    })--%>
+<%--                }--%>
+<%--            );--%>
 
-        });
+<%--        });--%>
 
-    </script>
+<%--    </script>--%>
     <script type="text/javascript">
         var playlist = 'CuklIb9d3fI';
         //https://www.youtube.com/watch?v=유튜브 영상 고유번호

@@ -1,5 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <%
     String SS_USER_ID = (String) session.getAttribute("SS_USER_ID");
 %>
@@ -32,41 +34,41 @@
     <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
     <script src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
-    <script>
+    <%--    <script>--%>
 
-        var playlist = 'CuklIb9d3fI';
-        //https://www.youtube.com/watch?v=유튜브 영상 고유번호
-        //playlist만 원하는 재생목록에 따라 가져오면 됨
+    <%--        var playlist = 'CuklIb9d3fI';--%>
+    <%--        //https://www.youtube.com/watch?v=유튜브 영상 고유번호--%>
+    <%--        //playlist만 원하는 재생목록에 따라 가져오면 됨--%>
 
-        //maxResult는 50 이하
-        $(document).ready(function () {
-            $.get(
-                "https://www.googleapis.com/youtube/v3/videos", {
-                    part: 'snippet',
-                    maxResults: 5,
-                    id: playlist,
-                    key: 'AIzaSyAfJQyw0LqcMkaJi0hCw35NUPyjV7Br-4g'
-                },
+    <%--        //maxResult는 50 이하--%>
+    <%--        $(document).ready(function () {--%>
+    <%--            $.get(--%>
+    <%--                "https://www.googleapis.com/youtube/v3/videos", {--%>
+    <%--                    part: 'snippet',--%>
+    <%--                    maxResults: 5,--%>
+    <%--                    id: playlist,--%>
+    <%--                    key: 'AIzaSyAfJQyw0LqcMkaJi0hCw35NUPyjV7Br-4g'--%>
+    <%--                },--%>
 
-                function (data) {
-                    var output;
-                    $.each(data.items, function (i, item) {
-                        console.log(item);
-                        vTitle = item.snippet.title;
-                        vId = item.snippet.channelId;
-                        vDe = item.snippet.description;
-                        vTh = item.snippet.channelTitle;
-                        vaaa = item.snippet.thumbnails.standard.url;
-                        output = '<li>' + vTitle + '<br>--videodescription: ' + vDe + '<br>--videothumbnails: ' + vTh + '<br></li>';
-                        /*output= '<li>'+vTitle+'<iframe src=\"//www.youtube.com/embed/'+vId+'\"></iframe></li>';*/
-                        $("#results").append(output);
-                    })
-                }
-            );
+    <%--                function (data) {--%>
+    <%--                    var output;--%>
+    <%--                    $.each(data.items, function (i, item) {--%>
+    <%--                        console.log(item);--%>
+    <%--                        vTitle = item.snippet.title;--%>
+    <%--                        vId = item.snippet.channelId;--%>
+    <%--                        vDe = item.snippet.description;--%>
+    <%--                        vTh = item.snippet.channelTitle;--%>
+    <%--                        vaaa = item.snippet.thumbnails.standard.url;--%>
+    <%--                        output = '<li>' + vTitle + '<br>--videodescription: ' + vDe + '<br>--videothumbnails: ' + vTh + '<br></li>';--%>
+    <%--                        /*output= '<li>'+vTitle+'<iframe src=\"//www.youtube.com/embed/'+vId+'\"></iframe></li>';*/--%>
+    <%--                        $("#results").append(output);--%>
+    <%--                    })--%>
+    <%--                }--%>
+    <%--            );--%>
 
-        });
+    <%--        });--%>
 
-    </script>
+    <%--    </script>--%>
     <script type="text/javascript">
         var playlist = 'CuklIb9d3fI';
         //https://www.youtube.com/watch?v=유튜브 영상 고유번호
@@ -105,13 +107,6 @@
 
 <body>
 <div class="container-xxl position-relative bg-white d-flex p-0">
-    <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-    <!-- Spinner End -->
 
 
     <!-- Sidebar Start -->
@@ -135,7 +130,7 @@
     <div class="content">
         <!-- Navbar Start -->
         <nav class="navbar navbar-expand bg-light navbar-light sticky-top px-4 py-0">
-            <a href="index.html" class="navbar-brand d-flex d-lg-none me-4">
+            <a href="index" class="navbar-brand d-flex d-lg-none me-4">
                 <h2 class="text-primary mb-0"><i class="fa fa-hashtag"></i></h2>
             </a>
             <a href="#" class="sidebar-toggler flex-shrink-0">
@@ -152,7 +147,12 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                         <a href="/Setting" class="dropdown-item">My Profile</a>
-                        <a href="/login" class="dropdown-item">login</a>
+                        <% if(SS_USER_ID != null){ %>
+                        <a href="/logout" class="dropdown-item">Log out<a>
+                                <%} else {%>
+                            <a href ="/user/loginForm" class="dropdown-item">Sign in<a>
+                                <a href="/user/UserRegForm" class="dropdown-item">Sign up</a>
+                                    <%} %>
                     </div>
                 </div>
             </div>

@@ -2,8 +2,20 @@
 <%@ page import="kopo.poly.persistance.mongodb.impl.UserInfoMapper" %>
 <%@ page import="kopo.poly.controller.UserInfoController" %>
 <%@ page import="kopo.poly.util.CmmUtil" %>
+<%@ page import="kopo.poly.dto.NoticeDTO" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="kopo.poly.dto.SStudioDTO" %>
 <%
 	String SS_USER_ID = (String) session.getAttribute("SS_USER_ID");
+
+	List<SStudioDTO> rList = (List<SStudioDTO>) request.getAttribute("rList");
+
+//게시판 조회 결과 보여주기
+	if (rList == null) {
+		rList = new ArrayList<SStudioDTO>();
+
+	}
 %>
 <%
 	String msg = "";
@@ -41,8 +53,10 @@
 
 	<!-- Template Stylesheet -->
 	<link href="/css/style.css" rel="stylesheet">
+	<link href="/css/table_with_div.css" rel="stylesheet">
 	<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
 	<script type="text/javascript">
+
 	</script>
 </head>
 
@@ -100,6 +114,7 @@
 						<a href="/Setting" class="dropdown-item">My Profile</a>
 						<% if(SS_USER_ID != null){ %>
 							<a href="/logout" class="dropdown-item">Log out<a>
+								<a href="/user/UseradjustForm" class="dropdown-item">Adjust up</a>
 									<%} else {%>
 								<a href ="/user/loginForm" class="dropdown-item">Sign in<a>
 									<a href="/user/UserRegForm" class="dropdown-item">Sign up</a>
@@ -110,23 +125,76 @@
 		</nav>
 		<!-- Navbar End -->
 
-
-
-
-
-		<!-- liveStream Start -->
+		<!-- YtList Start -->
 		<div class="container-fluid pt-4 px-4">
 			<div class="row g-4">
 				<div class="col-sm-12 col-xl-12">
 					<div class="bg-light text-center rounded p-4">
 						<div class="d-flex align-items-center justify-content-between mb-4">
 							<h6 class="mb-0">동영상</h6>
-							<a href="SingleStudio/SStudioadd">add</a>
+							<a href="SingleST/SStudioadd">add</a>
 
 							<!-- <a href="">Show All</a> -->
 
 						</div>
-						<a href="SingleStudio/SingleStudio">studio</a>
+						<a href="SingleST/SStud">studio</a>
+						<div class="table-responsive">
+							<div class="divTable minimalistBlack">
+								<div class="divTableHeading">
+									<div class="divTableRow">
+										<div class="divTableHead" style="width: 200px">thumbnail</div>
+										<div class="divTableHead">Title</div>
+									</div>
+								</div>
+
+								<div class="divTableBody">
+									<%
+										for (int i = 0; i < rList.size(); i++) {
+											SStudioDTO rDTO = rList.get(i);
+
+											if (rDTO == null) {
+												rDTO = new SStudioDTO();
+											}
+
+									%>
+									<div class="divTableRow">
+										<div class="divTableCell"><img class="tnail" src="http://img.youtube.com/vi/<%=CmmUtil.nvl(rDTO.getYt_address()) %>/mqdefault.jpg" width="180" height="120">
+										</div>
+										<div class="divTableCell">
+											<a href="https://www.youtube.com/watch?v=<%=CmmUtil.nvl(rDTO.getYt_address())%>">
+												<%=CmmUtil.nvl(rDTO.getYt_address()) %>
+												<script type="text/javascript">
+													$.get(
+															"https://www.googleapis.com/youtube/v3/videos", {
+																part: 'snippet',
+																maxResults: 5,
+																id: '<%=CmmUtil.nvl(rDTO.getYt_address())%>',
+																key: 'AIzaSyAfJQyw0LqcMkaJi0hCw35NUPyjV7Br-4g'
+															},
+
+															function (data) {
+																var output;
+																$.each(data.items, function (i, item) {
+																	console.log(item);
+																	vTitle = item.snippet.title;
+
+																	document.write(vTitle);
+																})
+															}
+													);
+
+													document.write(vTitle);
+												</script>
+											</a>
+										</div>
+									</div>
+									<%
+										}
+									%>
+								</div>
+							</div>
+
+						</div>
 						<!-- <canvas id="worldwide-sales"></canvas> -->
 					</div>
 				</div>
@@ -141,10 +209,10 @@
                 </div> -->
 			</div>
 		</div>
-		<!-- LiveStream End -->
+		<!-- YtList End -->
 
 
-		<!-- Recent Sales Start -->
+		<!-- YtList(seng) Start -->
 		<div class="container-fluid pt-4 px-4">
 			<div class="bg-light text-center rounded p-4">
 				<div class="d-flex align-items-center justify-content-between mb-4">
@@ -154,7 +222,7 @@
 
 			</div>
 		</div>
-		<!-- Recent Sales End -->
+		<!-- YtList(seng) End -->
 
 		<!-- Footer Start -->
 		<div class="container-fluid pt-4 px-4">

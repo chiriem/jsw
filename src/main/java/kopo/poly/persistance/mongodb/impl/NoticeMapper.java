@@ -132,7 +132,6 @@ public class NoticeMapper extends AbstractMongoDBComon implements INoticeMapper 
         Document projection = new Document();
         projection.append("notice_seq", "$notice_seq");
         projection.append("title", "$title");
-        projection.append("notice_yn", "$notice_yn");
         projection.append("contents", "$contents");
         projection.append("user_id", "$user_id");
         projection.append("read_cnt", "$read_cnt");
@@ -159,7 +158,6 @@ public class NoticeMapper extends AbstractMongoDBComon implements INoticeMapper 
             // 조회 테스트
             String notice_seq = CmmUtil.nvl(doc.getString("notice_seq"));
             String title = CmmUtil.nvl(doc.getString("title"));
-            String notice_yn = CmmUtil.nvl(doc.getString("notice_yn"));
             String contents = CmmUtil.nvl(doc.getString("contents"));
             String user_id = CmmUtil.nvl(doc.getString("user_id"));
             String read_cnt = CmmUtil.nvl(doc.getString("read_cnt"));
@@ -177,7 +175,6 @@ public class NoticeMapper extends AbstractMongoDBComon implements INoticeMapper 
             // rDTO에 값 집어넣기
             rDTO.setNotice_seq(notice_seq);
             rDTO.setTitle(title);
-            rDTO.setNotice_yn(notice_yn);
             rDTO.setContents(contents);
             rDTO.setUser_id(user_id);
             rDTO.setRead_cnt(read_cnt);
