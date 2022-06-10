@@ -29,7 +29,7 @@
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
-    <script src="https://code.jquery.com/jquery-3.0.0.js"></script>
+    <script src="/js/jquery-3.6.0.js"></script>
     <script type="text/javascript">
 
 

@@ -55,6 +55,7 @@
     <link href="/css/style.css" rel="stylesheet">
     <link href="/css/table_with_div.css" rel="stylesheet">
     <meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+    <script src="/js/jquery-3.6.0.js"></script>
     <script type="text/javascript">
         //상세보기 이동
         function doDetail(seq) {
@@ -150,6 +151,7 @@
                                     <div class="divTableRow">
                                         <div class="divTableHead" style="width: 200px">thumbnail</div>
                                         <div class="divTableHead">Title</div>
+                                        <div class="divTableHead">Link</div>
                                     </div>
                                 </div>
 
@@ -168,9 +170,30 @@
                                                                        src="http://img.youtube.com/vi/<%=CmmUtil.nvl(rDTO.getYt_address()) %>/mqdefault.jpg"
                                                                        width="180" height="120">
                                         </div>
-                                        <div class="divTableCell">
-                                            <a href="https://www.youtube.com/watch?v=<%=CmmUtil.nvl(rDTO.getYt_address())%>">
-                                            </a>
+                                        <div class="divTableCell" id="<%=CmmUtil.nvl(rDTO.getYt_seq())%>">
+                                                <script>
+                                                    $.get(
+                                                        "https://www.googleapis.com/youtube/v3/videos", {
+                                                            part: 'snippet',
+                                                            maxResults: 5,
+                                                            id: "<%=CmmUtil.nvl(rDTO.getYt_address())%>",
+                                                            key: 'AIzaSyAfJQyw0LqcMkaJi0hCw35NUPyjV7Br-4g'
+                                                        },
+
+                                                        function (data) {
+                                                            var output;
+                                                            $.each(data.items, function (i, item) {
+                                                                console.log(item);
+                                                                vTitle = item.snippet.title;
+
+                                                                $("#<%=CmmUtil.nvl(rDTO.getYt_seq())%>").append(vTitle);
+                                                            })
+                                                        }
+                                                    )
+                                                </script>
+                                        </div>
+                                        <div class="divTableCell" style="width: 100px">
+                                            <button class="btn btn-primary m-2" onclick="location.href='https://www.youtube.com/watch?v=<%=CmmUtil.nvl(rDTO.getYt_address())%>'">Go!</button>
                                         </div>
                                     </div>
                                     <%

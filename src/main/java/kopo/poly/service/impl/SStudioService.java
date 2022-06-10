@@ -83,8 +83,6 @@ public class SStudioService implements ISStudioService {
         // 조회 결과를 전달하기 위한 객체 생성하기
         List<SStudioDTO> rList = new LinkedList<>();
 
-        String ss_user_id = "aaaa";
-
         // 조회 결과 담기
         rList = sStudioMapper.getYtaddress(colNm);
 
