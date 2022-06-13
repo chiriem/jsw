@@ -4,6 +4,7 @@
 <html>
 <%
     String SS_USER_ID = (String) session.getAttribute("SS_USER_ID");
+    String yt_address = (String) session.getAttribute("yt_address");
 %>
 <head>
     <meta charset="utf-8">
@@ -70,6 +71,7 @@
 
     <%--    </script>--%>
     <script type="text/javascript">
+        var playlist = <%=yt_address%>;
         var playlist = 'CuklIb9d3fI';
         //https://www.youtube.com/watch?v=유튜브 영상 고유번호
         //playlist만 원하는 재생목록에 따라 가져오면 됨

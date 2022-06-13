@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,15 +39,62 @@ public class SStudioController {
      */
 
     @GetMapping(value = "index")
-    public String Index(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception{
+    public String Index(HttpSession session, HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception{
 
         //로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
-        log.info(this.getClass().getName() + ".getYtaddress start!");
-
+//        log.info(this.getClass().getName() + ".getYtaddress start!");
+//
+//        SStudioDTO pDTO = null;
+//
 //        String ss_user_id = (String) session.getAttribute("SS_USER_ID");
+//
+//        //유튜브 주소 가져오기
+//        List<SStudioDTO> rList = sStudioService.getYtaddress(pDTO, colNm);
+//
+//        if (rList==null){
+//            rList = new ArrayList<SStudioDTO>();
+//
+//        }
+//
+//        //조회된 리스트 결과값 넣어주기
+//        model.addAttribute("rList", rList);
+//
+//        pDTO = new SStudioDTO();
+//
+////        pDTO.setUser_id(user_id);
+//        pDTO.setUser_id(ss_user_id);
+//
+//        //변수 초기화(메모리 효율화 시키기 위해 사용함)
+//        rList = null;
+//
+//        //로그 찍기(추후 찍은 로그를 통해 이 함수 호출이 끝났는지 파악하기 용이하다.)
+//        log.info(this.getClass().getName() + ".getYtaddress end!");
 
-        //유튜브 주소 가져오기
-        List<SStudioDTO> rList = sStudioService.getYtaddress(colNm);
+
+        return "/index";
+    }
+
+    @RequestMapping(value = "user/getYtaddress")
+    public String getYtaddress(HttpSession session, HttpServletRequest request, HttpServletResponse response,
+                                    ModelMap model) throws Exception {
+        log.info(this.getClass().getName() + ".getYtaddress!! start!");
+
+        //정보를 저장할 변수
+        SStudioDTO pDTO = null;
+
+        pDTO = new SStudioDTO();
+
+        String user_id = (String) session.getAttribute("SS_USER_ID");
+//        String user_id = "aaaa";
+
+        log.info("user_id : " + user_id);
+
+        pDTO.setUser_id(user_id);
+
+
+        //유튜브 리스트 가져오기
+        List<SStudioDTO> rList = sStudioService.getYtaddress(pDTO, colNm);
+
 
         if (rList==null){
             rList = new ArrayList<SStudioDTO>();
@@ -59,15 +107,14 @@ public class SStudioController {
         //변수 초기화(메모리 효율화 시키기 위해 사용함)
         rList = null;
 
-        //로그 찍기(추후 찍은 로그를 통해 이 함수 호출이 끝났는지 파악하기 용이하다.)
-        log.info(this.getClass().getName() + ".getYtaddress end!");
+        log.info(this.getClass().getName() + ".getYtaddress!! end!");
 
-
-        return "/index";
+//        return "redirect:/index";
+        return "index";
     }
 
     @GetMapping(value = "SingleST/SStud")
-    public String SingleStudioview() {
+    public String SingleStudioview(HttpSession session) {
 
         log.info(this.getClass().getName() + ".SingleStudioview ok!");
 
@@ -161,6 +208,23 @@ public class SStudioController {
              */
             String user_id = CmmUtil.nvl(request.getParameter("user_id")); //아이디
             String yt_address = CmmUtil.nvl(request.getParameter("yt_address")); //유튜브 주소
+
+            String vid = yt_address;
+            log.info("vid : " + vid);
+            if (vid.contains("youtube.com/watch?v=")) {
+                String[] str1 = vid.split("youtube\\.com/watch\\?v=");
+                vid = str1[1];
+            } else if (vid.contains("youtu.be/")) {
+                String[] str1 = vid.split("youtu.be/");
+                vid = str1[1];
+            }
+
+            log.info("vid : " + vid);
+            if (vid.contains("&")) {
+                String[] str2 = vid.split("&");
+                vid = str2[0];
+            }
+            yt_address = vid.trim();
             /*
              * #######################################################
              *        웹에서 받는 정보를 String 변수에 저장 끝!!

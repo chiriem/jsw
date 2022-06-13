@@ -16,6 +16,8 @@ public interface ISStudioService {
      */
     int insertYtaddress(SStudioDTO pDTO, String colNm) throws Exception;
 
-    List<SStudioDTO> getYtaddress(String colNm) throws Exception;
+//    List<SStudioDTO> getYtaddress(SStudioDTO pDTO, String colNm) throws Exception;
+
+    List<SStudioDTO> getYtaddress(SStudioDTO pDTO, String colNm) throws Exception;
 
 }

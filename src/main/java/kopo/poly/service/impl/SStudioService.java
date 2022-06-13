@@ -75,17 +75,39 @@ public class SStudioService implements ISStudioService {
         return res;
     }
 
-    @Override
-    public List<SStudioDTO> getYtaddress(String colNm) throws Exception {
+//    @Override
+//    public List<SStudioDTO> getYtaddress(SStudioDTO pDTO, String colNm) throws Exception {
+//
+//        log.info(this.getClass().getName() + ".getYtaddress Start!");
+//
+//        if (pDTO == null) {
+//            pDTO = new SStudioDTO();
+//        }
+//
+//        // 조회 결과를 전달하기 위한 객체 생성하기
+//        List<SStudioDTO> rList = new LinkedList<>();
+//
+//        // 조회 결과 담기
+//        rList = sStudioMapper.getYtaddress(pDTO, colNm);
+//
+//        log.info(this.getClass().getName() + ".getYtaddress End!");
+//
+//        return rList;
+//    }
 
-        log.info(this.getClass().getName() + ".getYtaddress Start!");
+    @Override
+    public List<SStudioDTO> getYtaddress(SStudioDTO pDTO, String colNm) throws Exception {
+
+        // 로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
+        log.info(this.getClass().getName() + ".getYtaddress start!");
 
         // 조회 결과를 전달하기 위한 객체 생성하기
         List<SStudioDTO> rList = new LinkedList<>();
 
         // 조회 결과 담기
-        rList = sStudioMapper.getYtaddress(colNm);
+        rList = sStudioMapper.getYtaddress(pDTO, colNm);
 
+        // 로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
         log.info(this.getClass().getName() + ".getYtaddress End!");
 
         return rList;

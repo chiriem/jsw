@@ -43,4 +43,10 @@ public class MainController {
         return "SingleStudio";
 
     }
+
+    @GetMapping(value = "index2")
+    public String index2() {
+        return "index2";
+
+    }
 }

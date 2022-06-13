@@ -80,7 +80,7 @@
     <!-- Sidebar Start -->
     <div class="sidebar pe-4 pb-3">
         <nav class="navbar bg-light navbar-light">
-            <a href="index" class="navbar-brand mx-4 mb-3">
+            <a href="/index" class="navbar-brand mx-4 mb-3">
                 <h3 class="text-primary"><i class="fa fa-hashtag me-2"></i>MultiStudio</h3>
             </a>
             <div class="navbar-nav w-100">
@@ -139,38 +139,41 @@
                     <div class="bg-light text-center rounded p-4">
                         <div class="d-flex align-items-center justify-content-between mb-4">
                             <h6 class="mb-0">동영상</h6>
-                            <a href="SingleST/SStudioadd">add</a>
-
+                            <% if (SS_USER_ID != null) { %>
+                            <a href="/SingleST/SStudioadd">add</a>
+                            <%} %>
                             <!-- <a href="">Show All</a> -->
 
                         </div>
+
                         <a href="SingleST/SStud">studio</a>
-                        <div class="table-responsive">
-                            <div class="divTable minimalistBlack">
-                                <div class="divTableHeading">
-                                    <div class="divTableRow">
-                                        <div class="divTableHead" style="width: 200px">thumbnail</div>
-                                        <div class="divTableHead">Title</div>
-                                        <div class="divTableHead">Link</div>
-                                    </div>
-                                </div>
-
-                                <div class="divTableBody">
-                                    <%
-                                        for (int i = 0; i < rList.size(); i++) {
-                                            SStudioDTO rDTO = rList.get(i);
-
-                                            if (rDTO == null) {
-                                                rDTO = new SStudioDTO();
-                                            }
-
-                                    %>
-                                    <div class="divTableRow">
-                                        <div class="divTableCell"><img class="tnail"
-                                                                       src="http://img.youtube.com/vi/<%=CmmUtil.nvl(rDTO.getYt_address()) %>/mqdefault.jpg"
-                                                                       width="180" height="120">
+                        <form name="f" method="post" action="/user/getYtaddress">
+                            <div class="table-responsive">
+                                <div class="divTable minimalistBlack">
+                                    <div class="divTableHeading">
+                                        <div class="divTableRow">
+                                            <div class="divTableHead" style="width: 200px">thumbnail</div>
+                                            <div class="divTableHead">Title</div>
+                                            <div class="divTableHead" style="width: 100px">Link</div>
                                         </div>
-                                        <div class="divTableCell" id="<%=CmmUtil.nvl(rDTO.getYt_seq())%>">
+                                    </div>
+
+                                    <div class="divTableBody">
+                                        <%
+                                            for (int i = 0; i < rList.size(); i++) {
+                                                SStudioDTO rDTO = rList.get(i);
+
+                                                if (rDTO == null) {
+                                                    rDTO = new SStudioDTO();
+                                                }
+
+                                        %>
+                                        <div class="divTableRow">
+                                            <div class="divTableCell"><img class="tnail"
+                                                                           src="http://img.youtube.com/vi/<%=CmmUtil.nvl(rDTO.getYt_address()) %>/mqdefault.jpg"
+                                                                           width="180" height="120">
+                                            </div>
+                                            <div class="divTableCell" id="<%=CmmUtil.nvl(rDTO.getYt_seq())%>">
                                                 <script>
                                                     $.get(
                                                         "https://www.googleapis.com/youtube/v3/videos", {
@@ -191,18 +194,24 @@
                                                         }
                                                     )
                                                 </script>
+                                            </div>
+                                            <div class="divTableCell" style="width: 100px">
+                                                <button class="btn btn-primary m-2"
+<%--                                                        onclick="location.href='https://www.youtube.com/watch?v=<%=CmmUtil.nvl(rDTO.getYt_address())%>'">--%>
+                                                        onclick="location.href='/SingleST/SStud.jsp'">
+                                                    Go!
+                                                </button>
+                                            </div>
                                         </div>
-                                        <div class="divTableCell" style="width: 100px">
-                                            <button class="btn btn-primary m-2" onclick="location.href='https://www.youtube.com/watch?v=<%=CmmUtil.nvl(rDTO.getYt_address())%>'">Go!</button>
-                                        </div>
+                                        <%
+                                            }
+                                        %>
                                     </div>
-                                    <%
-                                        }
-                                    %>
                                 </div>
-                            </div>
 
-                        </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary py-3 w-100 mb-4">load!</button>
+                        </form>
                     </div>
                 </div>
 

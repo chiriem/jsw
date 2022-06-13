@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.model.Indexes;
+import kopo.poly.dto.NoticeDTO;
 import kopo.poly.dto.SStudioDTO;
 import kopo.poly.persistance.mongodb.AbstractMongoDBComon;
 import kopo.poly.persistance.mongodb.ISStudioMapper;
@@ -84,7 +85,7 @@ public class SStudioMapper extends AbstractMongoDBComon implements ISStudioMappe
     }
 
     @Override
-    public List<SStudioDTO> getYtaddress(String colNm) throws Exception {
+    public List<SStudioDTO> getYtaddress(SStudioDTO pDTO, String colNm) throws Exception {
 
         log.info(this.getClass().getName() + ".getYtaddress Start!");
 
@@ -97,12 +98,16 @@ public class SStudioMapper extends AbstractMongoDBComon implements ISStudioMappe
             // 컬렉션 생성
             super.createCollection(colNm);
             // 인덱스 생성
-            mongodb.getCollection(colNm).createIndex(Indexes.ascending("yt_seq"));
+            mongodb.getCollection(colNm).createIndex(Indexes.ascending("notice_seq"));
 
         }
 
         // MongoDB 컬렉션 지정하기
         MongoCollection<Document> col = mongodb.getCollection(colNm);
+
+        // 찾아야 할 쿼리값 생성
+        Document query = new Document();
+        query.append("user_id", CmmUtil.nvl(pDTO.getUser_id()));
 
         // 조회 결과 중 출력할 컬럼들(SQL의 SELECT절과 FROM절 가운데 컬럼들과 유사함)
         Document projection = new Document();
@@ -110,9 +115,12 @@ public class SStudioMapper extends AbstractMongoDBComon implements ISStudioMappe
         projection.append("user_id", "$user_id");
         projection.append("yt_address", "$yt_address");
 
+//        // MongoDB는 무조건 ObjectID가 자동생성되며, ObjectID는 사용하지 않을 때, 조회할 필요가 없음.
+//        projection.append("_id", 0);
+
         // MongoDB의 find 명령어를 통해 조회할 경우 사용함
         // 조회하는 데이터의 양이 적은 경우, find를 사용하고, 데이터양이 많은 경우 무조건 Aggregate 사용한다.
-        FindIterable<Document> rs = col.find(new Document()).projection(projection);
+        FindIterable<Document> rs = col.find(query).projection(projection);
 
         for (Document doc : rs) {
 
@@ -126,7 +134,6 @@ public class SStudioMapper extends AbstractMongoDBComon implements ISStudioMappe
             String yt_seq = CmmUtil.nvl(doc.getString("yt_seq"));
             String user_id = CmmUtil.nvl(doc.getString("user_id"));
             String yt_address = CmmUtil.nvl(doc.getString("yt_address"));
-
             log.info("yt_seq : " + yt_seq);
             log.info("user_id : " + user_id);
             log.info("yt_address : " + yt_address);
@@ -142,10 +149,78 @@ public class SStudioMapper extends AbstractMongoDBComon implements ISStudioMappe
 
         }
 
-        log.info(this.getClass().getName() + ".getYtaddress End!");
+        log.info(this.getClass().getName() + ".gettaddress End!");
 
         return rList;
     }
+
+//    @Override
+//    public List<SStudioDTO> getYtaddress(SStudioDTO pDTO, String colNm) throws Exception {
+//
+//        log.info(this.getClass().getName() + ".getYtaddress Start!");
+//
+//        // 조회 결과를 전달하기 위한 객체 생성하기
+//        List<SStudioDTO> rList = new LinkedList<>();
+//
+//        // 컬렉션이 없다면 생성하기
+//        if(!mongodb.collectionExists(colNm)) {
+//
+//            // 컬렉션 생성
+//            super.createCollection(colNm);
+//            // 인덱스 생성
+//            mongodb.getCollection(colNm).createIndex(Indexes.ascending("yt_seq"));
+//
+//        }
+//
+//        // MongoDB 컬렉션 지정하기
+//        MongoCollection<Document> col = mongodb.getCollection(colNm);
+//
+//        // 찾아야 할 쿼리값 생성
+//        Document query = new Document();
+//        query.append("user_id", CmmUtil.nvl(pDTO.getUser_id()));
+//
+//        // 조회 결과 중 출력할 컬럼들(SQL의 SELECT절과 FROM절 가운데 컬럼들과 유사함)
+//        Document projection = new Document();
+//        projection.append("yt_seq", "$yt_seq");
+//        projection.append("user_id", "$user_id");
+//        projection.append("yt_address", "$yt_address");
+//
+//        // MongoDB의 find 명령어를 통해 조회할 경우 사용함
+//        // 조회하는 데이터의 양이 적은 경우, find를 사용하고, 데이터양이 많은 경우 무조건 Aggregate 사용한다.
+//        FindIterable<Document> rs = col.find(query).projection(projection);
+//
+//        for (Document doc : rs) {
+//
+//            if (doc == null) {
+//
+//                doc = new Document();
+//
+//            }
+//
+//            // 조회 테스트
+//            String yt_seq = CmmUtil.nvl(doc.getString("yt_seq"));
+//            String user_id = CmmUtil.nvl(doc.getString("user_id"));
+//            String yt_address = CmmUtil.nvl(doc.getString("yt_address"));
+//
+//            log.info("yt_seq : " + yt_seq);
+//            log.info("user_id : " + user_id);
+//            log.info("yt_address : " + yt_address);
+//
+//            SStudioDTO rDTO = new SStudioDTO();
+//
+//            rDTO.setYt_seq(yt_seq);
+//            rDTO.setUser_id(user_id);
+//            rDTO.setYt_address(yt_address);
+//
+//            // 레코드 결과를 List에 저장하기
+//            rList.add(rDTO);
+//
+//        }
+//
+//        log.info(this.getClass().getName() + ".getYtaddress End!");
+//
+//        return rList;
+//    }
 
     @Override
     public SStudioDTO getYoutubeInfo(SStudioDTO pDTO, String colNm) throws Exception {
@@ -158,7 +233,9 @@ public class SStudioMapper extends AbstractMongoDBComon implements ISStudioMappe
         // MongoDB 컬렉션 지정하기
         MongoCollection<Document> col = mongodb.getCollection(colNm);
 
-
+        // 찾아야 할 쿼리값 생성
+        Document query = new Document();
+        query.append("user_id", CmmUtil.nvl(pDTO.getUser_id()));
 
         // 조회 결과 중 출력할 컬럼들(SQL의 SELECT절과 FROM절 가운데 컬럼들과 유사함)
         Document projection = new Document();
@@ -168,7 +245,7 @@ public class SStudioMapper extends AbstractMongoDBComon implements ISStudioMappe
 
         // MongoDB의 find 명령어를 통해 조회할 경우 사용함
         // 조회하는 데이터의 양이 적은 경우, find를 사용하고, 데이터양이 많은 경우 무조건 Aggregate 사용한다.
-        FindIterable<Document> rs = col.find(new Document("yt_seq", pDTO.getYt_seq())).projection(projection);
+        FindIterable<Document> rs = col.find(query).projection(projection);
 
         for (Document doc : rs) {
 

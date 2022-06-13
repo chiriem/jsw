@@ -222,7 +222,7 @@ public class UserInfoController {
              * #######################################################
              * */
             log.info("user_id : " + user_id);
-            log.info("password : " + password);
+//            log.info("password : " + password);
 
             /*
              * #######################################################

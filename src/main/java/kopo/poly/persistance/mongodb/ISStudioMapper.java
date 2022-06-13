@@ -16,7 +16,7 @@ public interface ISStudioMapper {
      */
     int insertYtAddress(SStudioDTO pDTO, String colNm) throws Exception;
 
-    List<SStudioDTO> getYtaddress(String colNm) throws Exception;
+    List<SStudioDTO> getYtaddress(SStudioDTO pDTO, String colNm) throws Exception;
 
     SStudioDTO getYoutubeInfo(SStudioDTO pDTO, String colNm) throws Exception;
 
