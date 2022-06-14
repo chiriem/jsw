@@ -188,8 +188,7 @@ public class NoticeController {
          * */
         NoticeDTO pDTO = new NoticeDTO();
 
-
-        pDTO.setNotice_seq(nSeq);;
+        pDTO.setNotice_seq(nSeq);
 
         //공지사항 글 조회수 증가
         noticeService.updateNoticeReadCnt(pDTO, colNm);

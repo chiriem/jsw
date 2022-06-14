@@ -16,8 +16,11 @@ public interface ISStudioService {
      */
     int insertYtaddress(SStudioDTO pDTO, String colNm) throws Exception;
 
-//    List<SStudioDTO> getYtaddress(SStudioDTO pDTO, String colNm) throws Exception;
-
     List<SStudioDTO> getYtaddress(SStudioDTO pDTO, String colNm) throws Exception;
+
+    /**
+     * 유튜브 주소만 받기
+     */
+    SStudioDTO getYoutubeInfo(SStudioDTO pDTO, String colNm) throws Exception;
 
 }

@@ -75,26 +75,6 @@ public class SStudioService implements ISStudioService {
         return res;
     }
 
-//    @Override
-//    public List<SStudioDTO> getYtaddress(SStudioDTO pDTO, String colNm) throws Exception {
-//
-//        log.info(this.getClass().getName() + ".getYtaddress Start!");
-//
-//        if (pDTO == null) {
-//            pDTO = new SStudioDTO();
-//        }
-//
-//        // 조회 결과를 전달하기 위한 객체 생성하기
-//        List<SStudioDTO> rList = new LinkedList<>();
-//
-//        // 조회 결과 담기
-//        rList = sStudioMapper.getYtaddress(pDTO, colNm);
-//
-//        log.info(this.getClass().getName() + ".getYtaddress End!");
-//
-//        return rList;
-//    }
-
     @Override
     public List<SStudioDTO> getYtaddress(SStudioDTO pDTO, String colNm) throws Exception {
 
@@ -111,6 +91,29 @@ public class SStudioService implements ISStudioService {
         log.info(this.getClass().getName() + ".getYtaddress End!");
 
         return rList;
+    }
+
+    @Override
+    public SStudioDTO getYoutubeInfo(SStudioDTO pDTO, String colNm) throws Exception {
+
+        log.info(this.getClass().getName() + ".getYoutubeInfo Start!");
+
+        // 조회 결과를 전달하기 위한 객체 생성하기
+        SStudioDTO rDTO = new SStudioDTO();
+
+        // 조회 결과 담기
+        rDTO = sStudioMapper.getYoutubeInfo(pDTO, colNm);
+
+        String yt_seq = rDTO.getYt_seq();
+        String yt_addrress = rDTO.getYt_address();
+
+        log.info("yt_seq : " + yt_seq);
+        log.info("yt_addrress : " + yt_addrress);
+
+        log.info(this.getClass().getName() + ".getYoutubeInfo End!");
+
+        return rDTO;
+
     }
 
 }

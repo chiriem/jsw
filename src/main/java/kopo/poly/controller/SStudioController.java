@@ -41,35 +41,6 @@ public class SStudioController {
     @GetMapping(value = "index")
     public String Index(HttpSession session, HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception{
 
-        //로그 찍기(추후 찍은 로그를 통해 이 함수에 접근했는지 파악하기 용이하다.)
-//        log.info(this.getClass().getName() + ".getYtaddress start!");
-//
-//        SStudioDTO pDTO = null;
-//
-//        String ss_user_id = (String) session.getAttribute("SS_USER_ID");
-//
-//        //유튜브 주소 가져오기
-//        List<SStudioDTO> rList = sStudioService.getYtaddress(pDTO, colNm);
-//
-//        if (rList==null){
-//            rList = new ArrayList<SStudioDTO>();
-//
-//        }
-//
-//        //조회된 리스트 결과값 넣어주기
-//        model.addAttribute("rList", rList);
-//
-//        pDTO = new SStudioDTO();
-//
-////        pDTO.setUser_id(user_id);
-//        pDTO.setUser_id(ss_user_id);
-//
-//        //변수 초기화(메모리 효율화 시키기 위해 사용함)
-//        rList = null;
-//
-//        //로그 찍기(추후 찍은 로그를 통해 이 함수 호출이 끝났는지 파악하기 용이하다.)
-//        log.info(this.getClass().getName() + ".getYtaddress end!");
-
 
         return "/index";
     }
@@ -85,7 +56,6 @@ public class SStudioController {
         pDTO = new SStudioDTO();
 
         String user_id = (String) session.getAttribute("SS_USER_ID");
-//        String user_id = "aaaa";
 
         log.info("user_id : " + user_id);
 
@@ -113,74 +83,76 @@ public class SStudioController {
         return "index";
     }
 
-    @GetMapping(value = "SingleST/SStud")
-    public String SingleStudioview(HttpSession session) {
-
-        log.info(this.getClass().getName() + ".SingleStudioview ok!");
-
-        return "SingleST/SStud";
-    }
-
-//    @GetMapping(value="SingleST/SStud")
-//    public String SStudioInfo(HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
+//    @GetMapping(value = "SingleST/SStud")
+//    public String SingleStudioview(HttpSession session) {
 //
-//        log.info(this.getClass().getName() + ".SStudiowatch start!");
+//        log.info(this.getClass().getName() + ".SingleStudioview ok!");
 //
-//
-//        /*
-//         * 게시판 글 등록되기 위해 사용되는 form객체의 하위 input 객체 등을 받아오기 위해 사용함
-//         * */
-//        String nSeq = CmmUtil.nvl(request.getParameter("nSeq")); //유튜브번호(PK)
-//
-//        /*
-//         * #######################################################
-//         *     반드시, 값을 받았으면, 꼭 로그를 찍어서 값이 제대로 들어오는지 파악해야함
-//         *                   반드시 작성할 것
-//         * #######################################################
-//         * */
-//        log.info("nSeq : "+ nSeq);
-//
-//
-//        /*
-//         * 값 전달은 반드시 DTO 객체를 이용해서 처리함
-//         * 전달 받은 값을 DTO 객체에 넣는다.
-//         * */
-//        SStudioDTO pDTO = new SStudioDTO();
-//
-//
-//        pDTO.setYt_seq(nSeq);
-//
-//        //공지사항 상세정보 가져오기
-//        SStudioDTO rDTO = sStudioService.getYtaddress(pDTO, colNm);
-//
-//        if (rDTO==null){
-//            rDTO = new SStudioDTO();
-//
-//        }
-//
-//        log.info("getNoticeInfo success!!!");
-//
-//        //조회된 리스트 결과값 넣어주기
-//        model.addAttribute("rDTO", rDTO);
-//
-//        //변수 초기화(메모리 효율화 시키기 위해 사용함)
-//        rDTO = null;
-//        pDTO = null;
-//
-//        log.info(this.getClass().getName() + ".SStudiowatch end!");
-//
-//        return "/SingleST/SStud";
+//        return "SingleST/SStud";
 //    }
+
+    @GetMapping(value="/SingleST/SStud")
+    public String SingleStudioview(HttpSession session, HttpServletRequest request, HttpServletResponse response, ModelMap model) throws Exception {
+
+        log.info(this.getClass().getName() + ".SingleSTview start!");
+
+
+        /*
+         * 게시판 글 등록되기 위해 사용되는 form객체의 하위 input 객체 등을 받아오기 위해 사용함
+         * */
+        String nSeq = CmmUtil.nvl(request.getParameter("nSeq")); //
+
+        /*
+         * #######################################################
+         *     반드시, 값을 받았으면, 꼭 로그를 찍어서 값이 제대로 들어오는지 파악해야함
+         *                   반드시 작성할 것
+         * #######################################################
+         * */
+        log.info("nSeq : "+ nSeq);
+
+        SStudioDTO pDTO = new SStudioDTO();
+
+        pDTO.setYt_seq(nSeq);
+
+        //상세정보 가져오기
+        SStudioDTO rDTO = sStudioService.getYoutubeInfo(pDTO, colNm);
+
+        if (rDTO==null){
+            rDTO = new SStudioDTO();
+
+        }
+
+        String yt_seq = rDTO.getYt_seq();
+        String yt_address = rDTO.getYt_address();
+
+        log.info("yt_seq : " + yt_seq);
+        log.info("yt_addrress : " + yt_address);
+
+        log.info("getYoutubeInfo success!!!");
+
+        session.setAttribute("yt_address", yt_address);
+
+        //조회된 리스트 결과값 넣어주기
+        model.addAttribute("rDTO", rDTO);
+
+        //변수 초기화(메모리 효율화 시키기 위해 사용함)
+        rDTO = null;
+        pDTO = null;
+
+        log.info(this.getClass().getName() + ".SingleSTview end!");
+
+        return "/SingleST/SStud";
+    }
 
     /**
      * 주소 입력 화면으로 이동
      */
-    @GetMapping(value = "SingleST/SStudioadd")
+    @GetMapping(value = "/SingleST/SStudioadd")
     public String SingleStudioadd() {
 
         log.info(this.getClass().getName() + ".SingleStudiovAddform ok!");
 
-        return "SingleST/SStudioadd";
+        return "/SingleST/SStudioadd";
     }
 
     /**

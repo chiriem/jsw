@@ -59,7 +59,7 @@
     <script type="text/javascript">
         //상세보기 이동
         function doDetail(seq) {
-            location.href = "/notice/NoticeInfo?nSeq=" + seq;
+            location.href = "/SingleST/SStud?nSeq=" + seq;
         }
     </script>
 </head>
@@ -196,11 +196,9 @@
                                                 </script>
                                             </div>
                                             <div class="divTableCell" style="width: 100px">
-                                                <button class="btn btn-primary m-2"
-<%--                                                        onclick="location.href='https://www.youtube.com/watch?v=<%=CmmUtil.nvl(rDTO.getYt_address())%>'">--%>
-                                                        onclick="location.href='/SingleST/SStud.jsp'">
+                                                <a href="javascript:doDetail('<%=CmmUtil.nvl(rDTO.getYt_seq())%>');">
                                                     Go!
-                                                </button>
+                                                </a>
                                             </div>
                                         </div>
                                         <%
